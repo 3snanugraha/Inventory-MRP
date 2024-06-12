@@ -161,4 +161,142 @@ function countRowsCustomer(){
 }
 
 
+// =========================
+// Satuan Function
+// =========================
+
+// Fungsi Tambah Satuan
+function tambahSatuan($satuan_name){
+    include "Database.php";
+
+    // Masukkan data ke database
+    $query_insert = mysqli_query($conn, "INSERT INTO satuan (satuan_name) VALUES ('$satuan_name')");
+    if (!$query_insert) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=satuan';</script>";
+        exit;
+    }
+}
+
+// Fungsi Ambil Data Satuan
+function getDataSatuan(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT * FROM satuan");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+
+    $array = [];
+    while ($satuan = mysqli_fetch_array($result)) {
+        $array[] = $satuan;
+    }
+    return $array;
+}
+
+// Fungsi Edit Satuan
+function editSatuan($satuan_id, $satuan_name) {
+    include "Database.php";
+    $query = mysqli_prepare($conn, "UPDATE satuan SET satuan_name=? WHERE satuan_id=?");
+    mysqli_stmt_bind_param($query, 'si', $satuan_name, $satuan_id);
+    mysqli_stmt_execute($query);
+    mysqli_stmt_close($query);
+    mysqli_close($conn);
+    echo "<script>alert('Sukses diupdate.');window.location='$_SERVER[PHP_SELF]?u=satuan';</script>";
+    exit;
+}
+
+// Fungsi Hapus Satuan
+function hapusSatuan($satuan_id){
+    include "Database.php";
+    $query = mysqli_query($conn, "DELETE FROM satuan WHERE satuan_id='$satuan_id'");
+    if (!$query) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>alert('Data berhasil dihapus.');window.location='$_SERVER[PHP_SELF]?u=satuan';</script>";
+        exit;
+    }
+}
+
+// Fungsi Hitung Jumlah Baris Satuan
+function countRowsSatuan(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM satuan");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_rows'];
+}
+
+// =========================
+// Material Function
+// =========================
+
+// Fungsi Tambah Material
+function tambahMaterial($material_name, $satuan_id, $stock) {
+    include "Database.php";
+
+    // Masukkan data ke database
+    $query_insert = mysqli_query($conn, "INSERT INTO material (material_name, satuan_id, stock) VALUES ('$material_name', '$satuan_id', '$stock')");
+    if (!$query_insert) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=material';</script>";
+        exit;
+    }
+}
+
+// Fungsi Ambil Data Material
+function getDataMaterial() {
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT * FROM material");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+
+    $array = [];
+    while ($material = mysqli_fetch_array($result)) {
+        $array[] = $material;
+    }
+    return $array;
+}
+
+// Fungsi Edit Material
+function editMaterial($material_id, $material_name, $satuan_id, $stock, $created_at) {
+    include "Database.php";
+    $query = mysqli_prepare($conn, "UPDATE material SET material_name=?, satuan_id=?, stock=?, created_at=? WHERE material_id=?");
+    mysqli_stmt_bind_param($query, 'siiis', $material_name, $satuan_id, $stock, $created_at, $material_id);
+    mysqli_stmt_execute($query);
+    mysqli_stmt_close($query);
+    mysqli_close($conn);
+    echo "<script>alert('Sukses diupdate.');window.location='$_SERVER[PHP_SELF]?u=material';</script>";
+    exit;
+}
+
+// Fungsi Hapus Material
+function hapusMaterial($material_id) {
+    include "Database.php";
+    $query = mysqli_query($conn, "DELETE FROM material WHERE material_id='$material_id'");
+    if (!$query) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>alert('Data berhasil dihapus.');window.location='$_SERVER[PHP_SELF]?u=material';</script>";
+        exit;
+    }
+}
+
+// Fungsi Hitung Jumlah Baris Material
+function countRowsMaterial() {
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM material");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_rows'];
+}
+
+
+
 ?>

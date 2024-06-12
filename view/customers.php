@@ -70,8 +70,8 @@
             <a href="#" data-bs-toggle="modal" data-bs-target="#tambah-data-pelanggan" class="btn btn-outline-primary mt-2 mb-4 rounded-pill"><i class="bi bi-plus-circle"></i><span> Tambahkan data </span></a>
             <a href="#" onclick="location.reload();" class="btn btn-outline-warning mt-2 mb-4 rounded-pill"><i class="bi bi-arrow-clockwise"></i><span> Refresh data </span></a>
 
-                        <!-- Table with stripped rows -->
-                        <div class="table-responsive">
+            <!-- Table with stripped rows -->
+            <div class="table-responsive">
               <table class="table datatable">
                 <thead>
                   <tr>
@@ -143,4 +143,5 @@
 
 </body>
 
+<?php include "modals.php"; ?>
 </html>
