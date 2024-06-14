@@ -138,7 +138,7 @@ function editCustomer($customer_id, $nama_pelanggan, $alamat, $kontak) {
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-customer';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=customers';</script>";
     exit;
 }
 
@@ -149,7 +149,7 @@ function hapusCustomer($customer_id){
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-customer';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=customers';</script>";
         exit;
     }
 }
@@ -179,7 +179,7 @@ function tambahProduk($nama_produk, $tipe, $profil, $warna, $size, $load){
     if (!$query_insert) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=products';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=produk';</script>";
         exit;
     }
 }
@@ -208,7 +208,7 @@ function editProduk($produk_id, $nama_produk, $tipe, $profil, $warna, $size, $lo
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-produk';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=produk';</script>";
     exit;
 }
 
@@ -219,7 +219,7 @@ function hapusProduk($produk_id){
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-produk';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=produk';</script>";
         exit;
     }
 }

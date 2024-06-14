@@ -1,9 +1,9 @@
-<!-- Modal Tambah Data Material -->
-<div class="modal fade" id="tambah-data-material" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Tambah Data Produk -->
+<div class="modal fade" id="tambah-data-produk" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Tambah Data Material</h5>
+        <h5 class="modal-title" id="tambahModalLabel">Tambah Data Produk</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -17,61 +17,79 @@
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="material_name">Nama Material</label>
+              <label for="tambah_nama_produk">Nama Produk</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="material_name" required>
+              <input type="text" class="form-control rounded-pill" name="nama_produk" id="tambah_nama_produk" required>
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="satuan_id">ID Satuan</label>
+              <label for="tambah_tipe">Tipe</label>
             </div>
             <div class="col-9">
-              <select name="satuan_id" class="form-select rounded-pill" required>
-              <option value="">-- Pilih Satuan --</option>
-              <?php 
-              $data_satuan=getDataSatuan();
-              foreach($data_satuan as $fetch_satuan){
-              ?>
-              <option value="<?= $fetch_satuan['satuan_id'];?>"><?= "#" . $fetch_satuan['satuan_id'] . " - " . $fetch_satuan['satuan_name'];?></option>
-              <?php } ?>
-              </select>
+              <input type="text" class="form-control rounded-pill" name="tipe" id="tambah_tipe" required>
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="stock">Stock</label>
+              <label for="tambah_profil">Profil</label>
             </div>
             <div class="col-9">
-              <input type="number" class="form-control rounded-pill" name="stock" required>
+              <input type="text" class="form-control rounded-pill" name="profil" id="tambah_profil" required>
             </div>
           </div>
 
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_warna">Warna</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="warna" id="tambah_warna" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_size">Size</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="size" id="tambah_size" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_load">Load</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="load" id="tambah_load" required>
+            </div>
+          </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
-         <button class="btn btn-primary rounded-pill" type="submit" name="tambah-material">Simpan</button>
-      </form>
+        <button class="btn btn-primary rounded-pill" type="submit" name="tambah-produk">Simpan</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
-<!-- End modal -->
+<!-- End Modal Tambah Data Produk -->
 
 
-<!-- Modal Tambah Data Satuan -->
-<div class="modal fade" id="tambah-data-satuan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<!-- Modal Tambah Data Pelanggan -->
+<div class="modal fade" id="tambah-data-pelanggan" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Tambah Data Satuan</h5>
+        <h5 class="modal-title" id="tambahModalLabel">Tambah Data Pelanggan</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="POST">
+        <form method="post">
           <div class="d-flex justify-content-center">
             <img class="img-fluid" width="120px" src="../view/assets/img/material.png" rel="icon">
           </div>
@@ -81,20 +99,37 @@
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="satuan_name">Nama Satuan</label>
+              <label for="tambah_nama_pelanggan">Nama Pelanggan</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="satuan_name" required>
+              <input type="text" class="form-control rounded-pill" name="nama_pelanggan" id="tambah_nama_pelanggan" required>
             </div>
           </div>
 
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_alamat">Alamat</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="alamat" id="tambah_alamat" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_telepon">Telepon</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="telepon" id="tambah_telepon" required>
+            </div>
+          </div>
       </div>
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
-         <button class="btn btn-primary rounded-pill" type="submit" name="tambah-satuan">Simpan</button>
-      </form>
+        <button class="btn btn-primary rounded-pill" type="submit" name="tambah-pelanggan">Simpan</button>
+        </form>
       </div>
     </div>
   </div>
 </div>
-<!-- End modal -->
+<!-- End Modal Tambah Data Pelanggan -->

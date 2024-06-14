@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Customers - Inventory MRP</title>
+  <title>Produk - Inventory MRP</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -49,11 +49,11 @@
   <main id="main" class="main">
 
 <div class="pagetitle">
-  <h1>Data Pelanggan</h1>
+  <h1>Data Produk</h1>
   <nav>
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item active">Data Pelanggan</li>
+      <li class="breadcrumb-item active">Data Produk</li>
     </ol>
   </nav>
 </div><!-- End Page Title -->
@@ -63,9 +63,9 @@
     <div class="col-lg-12">
       <div class="card rounded-4">
         <div class="card-body">
-          <h5 class="card-title">Data Pelanggan</h5>
-          <p>Berikut adalah semua data pelanggan. Gunakan <code>.Search</code> untuk mencari atau memfilter data. Gunakan kolom <code>.Aksi</code> untuk mengolah data.</p>
-          <a href="#" data-bs-toggle="modal" data-bs-target="#tambah-data-pelanggan" class="btn btn-outline-primary mt-2 mb-4 rounded-pill"><i class="bi bi-plus-circle"></i><span> Tambahkan data </span></a>
+          <h5 class="card-title">Data Produk</h5>
+          <p>Berikut adalah semua data produk. Gunakan <code>.Search</code> untuk mencari atau memfilter data. Gunakan kolom <code>.Aksi</code> untuk mengolah data.</p>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#tambah-data-produk" class="btn btn-outline-primary mt-2 mb-4 rounded-pill"><i class="bi bi-plus-circle"></i><span> Tambahkan data </span></a>
           <a href="#" onclick="location.reload();" class="btn btn-outline-warning mt-2 mb-4 rounded-pill"><i class="bi bi-arrow-clockwise"></i><span> Refresh data </span></a>
 
           <!-- Table with stripped rows -->
@@ -74,36 +74,42 @@
               <thead>
                 <tr>
                   <th scope="col">#No</th>
-                  <th scope="col">ID Pelanggan</th>
-                  <th scope="col">Nama Pelanggan</th>
-                  <th scope="col">Alamat</th>
-                  <th scope="col">Telepon</th>
+                  <th scope="col">ID Produk</th>
+                  <th scope="col">Nama Produk</th>
+                  <th scope="col">Tipe</th>
+                  <th scope="col">Profil</th>
+                  <th scope="col">Warna</th>
+                  <th scope="col">Size</th>
+                  <th scope="col">Load</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-                $data_pelanggan = getDataCustomer();
+                $data_produk = getDataProduk();
                 $no = 0;
-                foreach ($data_pelanggan as $fetch_pelanggan) {
+                foreach ($data_produk as $fetch_produk) {
                   $no++;
                 ?>
                   <tr>
                     <th scope="row"><b><?= $no; ?></b></th>
-                    <td><?= $fetch_pelanggan['id_pelanggan']; ?></td>
-                    <td><?= $fetch_pelanggan['nama_pelanggan']; ?></td>
-                    <td><?= $fetch_pelanggan['alamat']; ?></td>
-                    <td><?= $fetch_pelanggan['kontak']; ?></td>
+                    <td><?= $fetch_produk['id_produk']; ?></td>
+                    <td><?= $fetch_produk['nama_produk']; ?></td>
+                    <td><?= $fetch_produk['tipe']; ?></td>
+                    <td><?= $fetch_produk['profil']; ?></td>
+                    <td><?= $fetch_produk['warna']; ?></td>
+                    <td><?= $fetch_produk['size']; ?></td>
+                    <td><?= $fetch_produk['load']; ?></td>
                     <td>
-                      <a href="#" class="btn btn-sm btn-outline-warning rounded-pill mt-1" data-bs-toggle="modal" data-bs-target="#edit-data-pelanggan-<?= $fetch_pelanggan['id_pelanggan']; ?>"><i class="bi bi-pencil-square"></i></a>
-                      <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="<?= $_SERVER['PHP_SELF'] . "?u=hapus-pelanggan&id=" . $fetch_pelanggan['id_pelanggan']; ?>" class="btn btn-sm btn-outline-danger rounded-pill mt-1"><i class="bi bi-trash"></i></a>
+                      <a href="#" class="btn btn-sm btn-outline-warning rounded-pill mt-1" data-bs-toggle="modal" data-bs-target="#edit-data-produk-<?= $fetch_produk['id_produk']; ?>"><i class="bi bi-pencil-square"></i></a>
+                      <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="<?= $_SERVER['PHP_SELF'] . "?u=hapus-produk&id=" . $fetch_produk['id_produk']; ?>" class="btn btn-sm btn-outline-danger rounded-pill mt-1"><i class="bi bi-trash"></i></a>
 
-                      <!-- Modal Edit Data Pelanggan -->
-                      <div class="modal fade" id="edit-data-pelanggan-<?= $fetch_pelanggan['id_pelanggan']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel-<?= $fetch_pelanggan['id_pelanggan']; ?>" aria-hidden="true">
+                      <!-- Modal Edit Data Produk -->
+                      <div class="modal fade" id="edit-data-produk-<?= $fetch_produk['id_produk']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel-<?= $fetch_produk['id_produk']; ?>" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                           <div class="modal-content">
                             <div class="modal-header">
-                              <h5 class="modal-title" id="editModalLabel-<?= $fetch_pelanggan['id_pelanggan']; ?>">Edit Data Pelanggan</h5>
+                              <h5 class="modal-title" id="editModalLabel-<?= $fetch_produk['id_produk']; ?>">Edit Data Produk</h5>
                               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -117,50 +123,76 @@
 
                                 <div class="row mt-2">
                                   <div class="col-3">
-                                    <!-- <label for="edit_id_pelanggan">ID Pelanggan</label> -->
+                                    <!-- <label for="edit_id_produk">ID Produk</label> -->
                                   </div>
                                   <div class="col-9">
-                                    <input type="hidden" class="form-control rounded-pill" name="id_pelanggan" id="edit_id_pelanggan" value="<?= $fetch_pelanggan['id_pelanggan']; ?>" readonly>
+                                    <input type="hidden" class="form-control rounded-pill" name="id_produk" id="edit_id_produk" value="<?= $fetch_produk['id_produk']; ?>" readonly>
                                   </div>
                                 </div>
 
                                 <div class="row mt-2">
                                   <div class="col-3">
-                                    <label for="edit_nama_pelanggan">Nama Pelanggan</label>
+                                    <label for="edit_nama_produk">Nama Produk</label>
                                   </div>
                                   <div class="col-9">
-                                    <input type="text" class="form-control rounded-pill" name="nama_pelanggan" id="edit_nama_pelanggan" value="<?= $fetch_pelanggan['nama_pelanggan']; ?>" required>
+                                    <input type="text" class="form-control rounded-pill" name="nama_produk" id="edit_nama_produk" value="<?= $fetch_produk['nama_produk']; ?>" required>
                                   </div>
                                 </div>
 
                                 <div class="row mt-2">
                                   <div class="col-3">
-                                    <label for="edit_alamat">Alamat</label>
+                                    <label for="edit_tipe">Tipe</label>
                                   </div>
                                   <div class="col-9">
-                                    <input type="text" class="form-control rounded-pill" name="alamat" id="edit_alamat" value="<?= $fetch_pelanggan['alamat']; ?>" required>
+                                    <input type="text" class="form-control rounded-pill" name="tipe" id="edit_tipe" value="<?= $fetch_produk['tipe']; ?>" required>
                                   </div>
                                 </div>
 
                                 <div class="row mt-2">
                                   <div class="col-3">
-                                    <label for="edit_telepon">Telepon</label>
+                                    <label for="edit_profil">Profil</label>
                                   </div>
                                   <div class="col-9">
-                                    <input type="text" class="form-control rounded-pill" name="kontak" id="edit_telepon" value="<?= $fetch_pelanggan['kontak']; ?>" required>
+                                    <input type="text" class="form-control rounded-pill" name="profil" id="edit_profil" value="<?= $fetch_produk['profil']; ?>" required>
                                   </div>
                                 </div>
-                                <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
-                                <button class="btn btn-primary rounded-pill" type="submit" name="edit-pelanggan">Simpan</button>
+
+                                <div class="row mt-2">
+                                  <div class="col-3">
+                                    <label for="edit_warna">Warna</label>
+                                  </div>
+                                  <div class="col-9">
+                                    <input type="text" class="form-control rounded-pill" name="warna" id="edit_warna" value="<?= $fetch_produk['warna']; ?>" required>
+                                  </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                  <div class="col-3">
+                                    <label for="edit_size">Size</label>
+                                  </div>
+                                  <div class="col-9">
+                                    <input type="text" class="form-control rounded-pill" name="size" id="edit_size" value="<?= $fetch_produk['size']; ?>" required>
+                                  </div>
+                                </div>
+
+                                <div class="row mt-2">
+                                  <div class="col-3">
+                                    <label for="edit_load">Load</label>
+                                  </div>
+                                  <div class="col-9">
+                                    <input type="text" class="form-control rounded-pill" name="load" id="edit_load" value="<?= $fetch_produk['load']; ?>" required>
+                                  </div>
+                                </div>
                             </div>
                             <div class="modal-footer d-flex justify-content-center">
-                              
+                              <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
+                              <button class="btn btn-primary rounded-pill" type="submit" name="edit-produk">Simpan</button>
                               </form>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <!-- End Modal Edit Data Pelanggan -->
+                      <!-- End Modal Edit Data Produk -->
                     </td>
                   </tr>
                 <?php } ?>
@@ -175,9 +207,7 @@
   </div>
 </section>
 
-
 </main><!-- End #main -->
-
 
   <!-- ======= Footer ======= -->
   <?php
