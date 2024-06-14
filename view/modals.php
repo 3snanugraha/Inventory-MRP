@@ -468,6 +468,101 @@
 </div>
 <!-- End Modal Tambah Data MRP -->
 
+<!-- Modal Tambah Data MPS -->
+<div class="modal fade" id="tambah-data-mps" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="tambahModalLabel">Tambah Data MPS</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          <div class="d-flex justify-content-center">
+            <img class="img-fluid" width="120px" src="../view/assets/img/material.png" rel="icon">
+          </div>
+
+          <h6 class="text-center">Silahkan isi data dengan lengkap di bawah ini.</h6>
+          <hr>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_id_produk">ID Produk</label>
+            </div>
+            <div class="col-9">
+              <select class="form-control rounded-pill" name="id_produk" id="tambah_id_produk" required>
+                <option value="">-- Pilih ID Produk --</option>
+                <?php
+                // Misalnya, $data_produk adalah array yang berisi data produk (sesuaikan dengan logika aplikasi Anda)
+                $data_produk = getDataProduk();
+                foreach ($data_produk as $produk) {
+                  echo '<option value="' . $produk['id_produk'] . '">' . $produk['id_produk'] . ' - ' . $produk['nama_produk'] . '</option>';
+                }
+                ?>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_tipe">Tipe</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="tipe" id="tambah_tipe" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_profil">Profil</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="profil" id="tambah_profil" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_warna">Warna</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="warna" id="tambah_warna" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_size">Size</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="size" id="tambah_size" required>
+            </div>
+          </div>
+
+          <div class="row mt-2">
+            <div class="col-3">
+              <label for="tambah_load">Load</label>
+            </div>
+            <div class="col-9">
+              <input type="text" class="form-control rounded-pill" name="load" id="tambah_load" required>
+            </div>
+          </div>
+
+          <div class="text-center mt-5 mb-2">
+            <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
+            <button class="btn btn-primary rounded-pill" type="submit" name="tambah-mps">Simpan</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal Tambah Data MPS -->
+
+
 <!-- Modal Keterangan MRP -->
 <div class="modal fade" id="keterangan-mrp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="keteranganModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
