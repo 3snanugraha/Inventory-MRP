@@ -253,24 +253,24 @@
     
             <!-- Pembelian Terbaru -->
             <div class="col-12">
-              <div class="card recent-purchases overflow-auto">
-    
+              <div class="card recent-purchases overflow-auto rounded-5">
+
                 <div class="filter">
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
                       <h6>Filter</h6>
                     </li>
-    
+
                     <li><a class="dropdown-item" href="#">Hari Ini</a></li>
                     <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
                     <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
                   </ul>
                 </div>
-    
+
                 <div class="card-body">
                   <h5 class="card-title">Pembelian Terbaru <span>| Hari Ini</span></h5>
-    
+
                   <table class="table table-borderless datatable">
                     <thead>
                       <tr>
@@ -305,74 +305,73 @@
                       </tr>
                     </tbody>
                   </table>
-    
+
                 </div>
-    
+
               </div>
             </div><!-- Akhir Pembelian Terbaru -->
-    
-          </div>
-        </div><!-- Akhir Kolom Kiri -->
-    
-        <!-- Kolom Kanan -->
-        <div class="col-lg-4">
-    
-          <!-- Pengendalian Persediaan -->
-          <div class="card">
-            <div class="filter">
-              <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                <li class="dropdown-header text-start">
-                  <h6>Filter</h6>
-                </li>
-    
-                <li><a class="dropdown-item" href="#">Hari Ini</a></li>
-                <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
-                <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
-              </ul>
-            </div>
-            <div class="card-body">
-              <h5 class="card-title">Pengendalian Persediaan <span>| Hari Ini</span></h5>
-    
-              <div class="activity">
-    
-                <div class="activity-item d-flex">
-                  <div class="activite-label">32 menit</div>
-                  <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                  <div class="activity-content">
-                    Menambahkan <a href="#" class="fw-bold text-dark">150 kg Baja</a> ke stok.
-                  </div>
-                </div><!-- Akhir item aktivitas-->
-    
-                <div class="activity-item d-flex">
-                  <div class="activite-label">1 jam</div>
-                  <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                  <div class="activity-content">
-                    Memindahkan <a href="#" class="fw-bold text-dark">200 kg Plastik</a> ke lini produksi.
-                  </div>
-                </div><!-- Akhir item aktivitas-->
-    
-                <div class="activity-item d-flex">
-                  <div class="activite-label">2 jam</div>
-                  <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                  <div class="activity-content">
-                    Mencatat <a href="#" class="fw-bold text-dark">100 kg Tembaga</a> sebagai rusak.
-                  </div>
-                </div><!-- Akhir item aktivitas-->
-    
-              </div>
-    
-            </div>
-          </div><!-- Akhir Pengendalian Persediaan -->
-    
-        </div><!-- Akhir Kolom Kanan -->
-    
-      </div>
-    </section>
-    
-    
 
-  </main><!-- End #main -->
+            </div>
+            </div><!-- Akhir Kolom Kiri -->
+
+            <!-- Kolom Kanan -->
+            <div class="col-lg-4">
+
+              <!-- Pengendalian Persediaan -->
+              <div class="card">
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Hari Ini</a></li>
+                    <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
+                    <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
+                  </ul>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Pengendalian Persediaan <span>| Hari Ini</span></h5>
+
+                  <div class="activity">
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">32 menit</div>
+                      <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
+                      <div class="activity-content">
+                        Menambahkan <a href="#" class="fw-bold text-dark">150 kg Baja</a> ke stok.
+                      </div>
+                    </div><!-- Akhir item aktivitas-->
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">1 jam</div>
+                      <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
+                      <div class="activity-content">
+                        Memindahkan <a href="#" class="fw-bold text-dark">200 kg Plastik</a> ke lini produksi.
+                      </div>
+                    </div><!-- Akhir item aktivitas-->
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">2 jam</div>
+                      <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
+                      <div class="activity-content">
+                        Mencatat <a href="#" class="fw-bold text-dark">100 kg Tembaga</a> sebagai rusak.
+                      </div>
+                    </div><!-- Akhir item aktivitas-->
+
+                  </div>
+
+                </div>
+              </div><!-- Akhir Pengendalian Persediaan -->
+
+            </div><!-- Akhir Kolom Kanan -->
+
+            </div>
+            </section>
+
+            </main><!-- End #main -->
+
 
   <!-- ======= Footer ======= -->
   <?php

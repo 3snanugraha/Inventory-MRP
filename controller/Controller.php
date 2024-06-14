@@ -10,6 +10,10 @@ if(isset($_GET['u'])){
     if($_GET['u']=='login'){
         LoginSessionCheck();
         include "../view/login.php";
+    }
+    // View Logout
+    if($_GET['u']=='logout'){
+        Logout();
     } 
     // View Home
     else if($_GET['u']=='home'){

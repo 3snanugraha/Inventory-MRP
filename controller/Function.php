@@ -8,19 +8,21 @@ error_reporting(E_ALL);
 // ==============================================
 //              Kontrol Database
 // ============================================== 
-// Fungsi Login
-// ==============================================
+
 // Fungsi Login Admin
 function LoginAdmin($username, $password) {
     include "Database.php";
     session_start();
     $enc_password = md5($password);  // Menggunakan md5 untuk hashing password
-    $query = mysqli_query($conn, "SELECT * FROM admin WHERE username='$username' AND password='$enc_password'");
+    // Memeriksa apakah pengguna dengan role 'Admin' ada dalam tabel t_users
+    $query = mysqli_query($conn, "SELECT * FROM t_users WHERE username='$username' AND password='$enc_password'");
     $fetchdata = mysqli_fetch_array($query);
     if (!empty($fetchdata['username'])) {
-        $_SESSION['admin_id'] = $fetchdata['admin_id'];  // Menggunakan nama kolom dari tabel SQL yang telah kita buat
+        // Menyimpan informasi pengguna dalam session
+        $_SESSION['user_id'] = $fetchdata['id_user'];  // Menggunakan nama kolom dari tabel SQL yang telah kita buat
         $_SESSION['username'] = $fetchdata['username'];
-        $_SESSION['name'] = $fetchdata['name'];
+        $_SESSION['name'] = $fetchdata['nama'];
+        $_SESSION['role'] = $fetchdata['role'];
         echo "<script>window.location='$_SERVER[PHP_SELF]?u=home';</script>";
         exit;
     } else {
@@ -30,11 +32,11 @@ function LoginAdmin($username, $password) {
 }
 
 // Fungsi Ubah Akun Admin
-function ubahAkunAdmin($admin_id, $old_password, $username, $password){
+function ubahAkunAdmin($user_id, $old_password, $username, $password){
     include "Database.php";
     
     // Verifikasi password lama
-    $query = mysqli_query($conn, "SELECT password FROM admin WHERE admin_id='$admin_id'");
+    $query = mysqli_query($conn, "SELECT password FROM t_users WHERE id_user='$user_id' AND role='Admin'");
     $result = mysqli_fetch_assoc($query);
 
     if (md5($old_password) == $result['password']) {
@@ -48,7 +50,7 @@ function ubahAkunAdmin($admin_id, $old_password, $username, $password){
         }
         
         // Update data di database
-        $query_update = mysqli_query($conn, "UPDATE admin SET username='$username', password='$hashed_password' WHERE admin_id='$admin_id'");
+        $query_update = mysqli_query($conn, "UPDATE t_users SET nama='$username', password='$hashed_password' WHERE id_user='$user_id' AND role='Admin'");
         
         if (!$query_update) {
             die("Query error: " . mysqli_error($conn));
@@ -67,7 +69,8 @@ function ubahAkunAdmin($admin_id, $old_password, $username, $password){
 // Fungsi Periksa Session Login 
 function LoginSessionCheck(){
     session_start();
-    if(!empty($_SESSION['username']) AND !empty($_SESSION['name'])){
+    // Memeriksa apakah session username dan role sudah ada, jika ya, pengguna sudah login
+    if(!empty($_SESSION['username']) && !empty($_SESSION['role'])){
         echo "<script>alert('Anda sudah login');window.location='$_SERVER[PHP_SELF]?u=home';</script>";
         exit;
     }
@@ -76,9 +79,9 @@ function LoginSessionCheck(){
 // Fungsi Periksa Session
 function SessionCheck(){
     session_start();
-    if(empty($_SESSION['username']) AND empty($_SESSION['role'])){
-        echo "<script>alert('Session telah habis. silahkan login kembali.');
-        window.location='$_SERVER[PHP_SELF]?u=login'</script>";
+    // Memeriksa apakah session username dan role kosong, jika ya, session telah habis atau pengguna belum login
+    if(empty($_SESSION['username']) && empty($_SESSION['role'])){
+        echo "<script>alert('Session telah habis. silahkan login kembali.');window.location='$_SERVER[PHP_SELF]?u=login';</script>";
         exit;
     }
 }
@@ -86,23 +89,23 @@ function SessionCheck(){
 // Logout
 function Logout(){
     session_start();
-    session_destroy();
+    session_destroy();  // Menghancurkan semua session
     echo "<script>alert('Logout berhasil');window.location='$_SERVER[PHP_SELF]?u=login';</script>";
     exit;
 }
 
 
-// =========================
-// Customer Function
-// =========================
+
+// ==============================================
+//           Function - Pelanggan
+// ============================================== 
 
 // Fungsi Tambah Customer
-function tambahCustomer($customer_name, $customer_address, $customer_phone){
+function tambahCustomer($nama_pelanggan, $alamat, $kontak){
     include "Database.php";
 
     // Masukkan data ke database
-    $created_at = date('Y-m-d H:i:s');
-    $query_insert = mysqli_query($conn, "INSERT INTO customer (customer_name, customer_address, customer_phone, created_at) VALUES ('$customer_name', '$customer_address', '$customer_phone', '$created_at')");
+    $query_insert = mysqli_query($conn, "INSERT INTO t_pelanggan (nama_pelanggan, alamat, kontak) VALUES ('$nama_pelanggan', '$alamat', '$kontak')");
     if (!$query_insert) {
         die("Query error: " . mysqli_error($conn));
     } else {
@@ -114,7 +117,7 @@ function tambahCustomer($customer_name, $customer_address, $customer_phone){
 // Fungsi Ambil Data Customer
 function getDataCustomer(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT * FROM customer");
+    $result = mysqli_query($conn, "SELECT * FROM t_pelanggan");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
@@ -127,9 +130,11 @@ function getDataCustomer(){
 }
 
 // Fungsi Edit Customer
-function editCustomer($conn, $customer_id, $customer_name, $customer_address, $customer_phone) {
-    $query = mysqli_prepare($conn, "UPDATE customer SET customer_name=?, customer_address=?, customer_phone=? WHERE customer_id=?");
-    mysqli_stmt_bind_param($query, 'sssi', $customer_name, $customer_address, $customer_phone, $customer_id);
+function editCustomer($customer_id, $nama_pelanggan, $alamat, $kontak) {
+    include "Database.php";
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "UPDATE t_pelanggan SET nama_pelanggan=?, alamat=?, kontak=? WHERE id_pelanggan=?");
+    mysqli_stmt_bind_param($query, 'sssi', $nama_pelanggan, $alamat, $kontak, $customer_id);
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
@@ -140,7 +145,7 @@ function editCustomer($conn, $customer_id, $customer_name, $customer_address, $c
 // Fungsi Hapus Customer
 function hapusCustomer($customer_id){
     include "Database.php";
-    $query = mysqli_query($conn, "DELETE FROM customer WHERE customer_id='$customer_id'");
+    $query = mysqli_query($conn, "DELETE FROM t_pelanggan WHERE id_pelanggan='$customer_id'");
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
@@ -152,7 +157,7 @@ function hapusCustomer($customer_id){
 // Fungsi Hitung Jumlah Baris Customer
 function countRowsCustomer(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM customer");
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM t_pelanggan");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
@@ -161,67 +166,68 @@ function countRowsCustomer(){
 }
 
 
-// =========================
-// Satuan Function
-// =========================
+// ==============================================
+//              Kontrol Database - Produk
+// ============================================== 
 
-// Fungsi Tambah Satuan
-function tambahSatuan($satuan_name){
+// Fungsi Tambah Produk
+function tambahProduk($nama_produk, $tipe, $profil, $warna, $size, $load){
     include "Database.php";
 
     // Masukkan data ke database
-    $query_insert = mysqli_query($conn, "INSERT INTO satuan (satuan_name) VALUES ('$satuan_name')");
+    $query_insert = mysqli_query($conn, "INSERT INTO t_produk (nama_produk, tipe, profil, warna, size, `load`) VALUES ('$nama_produk', '$tipe', '$profil', '$warna', '$size', '$load')");
     if (!$query_insert) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=satuan';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=products';</script>";
         exit;
     }
 }
 
-// Fungsi Ambil Data Satuan
-function getDataSatuan(){
+// Fungsi Ambil Data Produk
+function getDataProduk(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT * FROM satuan");
+    $result = mysqli_query($conn, "SELECT * FROM t_produk");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
 
     $array = [];
-    while ($satuan = mysqli_fetch_array($result)) {
-        $array[] = $satuan;
+    while ($produk = mysqli_fetch_array($result)) {
+        $array[] = $produk;
     }
     return $array;
 }
 
-// Fungsi Edit Satuan
-function editSatuan($satuan_id, $satuan_name) {
+// Fungsi Edit Produk
+function editProduk($produk_id, $nama_produk, $tipe, $profil, $warna, $size, $load) {
     include "Database.php";
-    $query = mysqli_prepare($conn, "UPDATE satuan SET satuan_name=? WHERE satuan_id=?");
-    mysqli_stmt_bind_param($query, 'si', $satuan_name, $satuan_id);
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "UPDATE t_produk SET nama_produk=?, tipe=?, profil=?, warna=?, size=?, `load`=? WHERE id_produk=?");
+    mysqli_stmt_bind_param($query, 'ssssssi', $nama_produk, $tipe, $profil, $warna, $size, $load, $produk_id);
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>alert('Sukses diupdate.');window.location='$_SERVER[PHP_SELF]?u=satuan';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-produk';</script>";
     exit;
 }
 
-// Fungsi Hapus Satuan
-function hapusSatuan($satuan_id){
+// Fungsi Hapus Produk
+function hapusProduk($produk_id){
     include "Database.php";
-    $query = mysqli_query($conn, "DELETE FROM satuan WHERE satuan_id='$satuan_id'");
+    $query = mysqli_query($conn, "DELETE FROM t_produk WHERE id_produk='$produk_id'");
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>alert('Data berhasil dihapus.');window.location='$_SERVER[PHP_SELF]?u=satuan';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-produk';</script>";
         exit;
     }
 }
 
-// Fungsi Hitung Jumlah Baris Satuan
-function countRowsSatuan(){
+// Fungsi Hitung Jumlah Baris Produk
+function countRowsProduk(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM satuan");
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM t_produk");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
@@ -229,67 +235,278 @@ function countRowsSatuan(){
     return $row['total_rows'];
 }
 
-// =========================
-// Material Function
-// =========================
 
-// Fungsi Tambah Material
-function tambahMaterial($material_name, $satuan_id, $stock) {
+// ==============================================
+//              Kontrol Database - Bahan Baku
+// ============================================== 
+
+// Fungsi Tambah Bahan Baku
+function tambahBahanBaku($kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_baku, $stok_awal, $stok_akhir){
     include "Database.php";
 
     // Masukkan data ke database
-    $query_insert = mysqli_query($conn, "INSERT INTO material (material_name, satuan_id, stock) VALUES ('$material_name', '$satuan_id', '$stock')");
+    $query_insert = mysqli_query($conn, "INSERT INTO t_bahan_baku (kode_bom, id_produk, nama_bahan_baku, jenis_bahan_baku, stok_awal, stok_akhir) VALUES ('$kode_bom', '$id_produk', '$nama_bahan_baku', '$jenis_bahan_baku', '$stok_awal', '$stok_akhir')");
     if (!$query_insert) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=material';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan-baku';</script>";
         exit;
     }
 }
 
-// Fungsi Ambil Data Material
-function getDataMaterial() {
+// Fungsi Ambil Data Bahan Baku
+function getDataBahanBaku(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT * FROM material");
+    $result = mysqli_query($conn, "SELECT * FROM t_bahan_baku");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
 
     $array = [];
-    while ($material = mysqli_fetch_array($result)) {
-        $array[] = $material;
+    while ($bahan_baku = mysqli_fetch_array($result)) {
+        $array[] = $bahan_baku;
     }
     return $array;
 }
 
-// Fungsi Edit Material
-function editMaterial($material_id, $material_name, $satuan_id, $stock, $created_at) {
+// Fungsi Edit Bahan Baku
+function editBahanBaku($bahan_baku_id, $kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_baku, $stok_awal, $stok_akhir) {
     include "Database.php";
-    $query = mysqli_prepare($conn, "UPDATE material SET material_name=?, satuan_id=?, stock=?, created_at=? WHERE material_id=?");
-    mysqli_stmt_bind_param($query, 'siiis', $material_name, $satuan_id, $stock, $created_at, $material_id);
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "UPDATE t_bahan_baku SET kode_bom=?, id_produk=?, nama_bahan_baku=?, jenis_bahan_baku=?, stok_awal=?, stok_akhir=? WHERE id_bahan_baku=?");
+    mysqli_stmt_bind_param($query, 'sisssii', $kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_baku, $stok_awal, $stok_akhir, $bahan_baku_id);
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>alert('Sukses diupdate.');window.location='$_SERVER[PHP_SELF]?u=material';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku';</script>";
     exit;
 }
 
-// Fungsi Hapus Material
-function hapusMaterial($material_id) {
+// Fungsi Hapus Bahan Baku
+function hapusBahanBaku($bahan_baku_id){
     include "Database.php";
-    $query = mysqli_query($conn, "DELETE FROM material WHERE material_id='$material_id'");
+    $query = mysqli_query($conn, "DELETE FROM t_bahan_baku WHERE id_bahan_baku='$bahan_baku_id'");
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>alert('Data berhasil dihapus.');window.location='$_SERVER[PHP_SELF]?u=material';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku';</script>";
         exit;
     }
 }
 
-// Fungsi Hitung Jumlah Baris Material
-function countRowsMaterial() {
+// Fungsi Hitung Jumlah Baris Bahan Baku
+function countRowsBahanBaku(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM material");
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM t_bahan_baku");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_rows'];
+}
+
+// ==============================================
+//              Kontrol Database - Bahan Baku Masuk
+// ============================================== 
+
+// Fungsi Tambah Bahan Baku Masuk
+function tambahBahanBakuMasuk($id_bahan_baku, $nama_supplier, $jumlah_bahan_masuk, $tanggal_bahan_masuk){
+    include "Database.php";
+
+    // Masukkan data ke database
+    $query_insert = mysqli_query($conn, "INSERT INTO t_bahan_baku_masuk (id_bahan_baku, nama_supplier, jumlah_bahan_masuk, tanggal_bahan_masuk) VALUES ('$id_bahan_baku', '$nama_supplier', '$jumlah_bahan_masuk', '$tanggal_bahan_masuk')");
+    if (!$query_insert) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan-baku-masuk';</script>";
+        exit;
+    }
+}
+
+// Fungsi Ambil Data Bahan Baku Masuk
+function getDataBahanBakuMasuk(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT * FROM t_bahan_baku_masuk");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+
+    $array = [];
+    while ($bahan_baku_masuk = mysqli_fetch_array($result)) {
+        $array[] = $bahan_baku_masuk;
+    }
+    return $array;
+}
+
+// Fungsi Edit Bahan Baku Masuk
+function editBahanBakuMasuk($bahan_baku_masuk_id, $id_bahan_baku, $nama_supplier, $jumlah_bahan_masuk, $tanggal_bahan_masuk) {
+    include "Database.php";
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "UPDATE t_bahan_baku_masuk SET id_bahan_baku=?, nama_supplier=?, jumlah_bahan_masuk=?, tanggal_bahan_masuk=? WHERE no_bahan_masuk=?");
+    mysqli_stmt_bind_param($query, 'isssi', $id_bahan_baku, $nama_supplier, $jumlah_bahan_masuk, $tanggal_bahan_masuk, $bahan_baku_masuk_id);
+    mysqli_stmt_execute($query);
+    mysqli_stmt_close($query);
+    mysqli_close($conn);
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku-masuk';</script>";
+    exit;
+}
+
+// Fungsi Hapus Bahan Baku Masuk
+function hapusBahanBakuMasuk($bahan_baku_masuk_id){
+    include "Database.php";
+    $query = mysqli_query($conn, "DELETE FROM t_bahan_baku_masuk WHERE no_bahan_masuk='$bahan_baku_masuk_id'");
+    if (!$query) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku-masuk';</script>";
+        exit;
+    }
+}
+
+// Fungsi Hitung Jumlah Baris Bahan Baku Masuk
+function countRowsBahanBakuMasuk(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM t_bahan_baku_masuk");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_rows'];
+}
+
+
+// ==============================================
+//              Kontrol Database - Bill of Materials (BOM)
+// ============================================== 
+
+// Fungsi Tambah BOM
+function tambahBOM($id_produk, $nama_komponen, $panjang, $tb, $jumlah, $satuan){
+    include "Database.php";
+
+    // Masukkan data ke database
+    $query_insert = mysqli_query($conn, "INSERT INTO t_bom (id_produk, nama_komponen, panjang, tb, jumlah, satuan) VALUES ('$id_produk', '$nama_komponen', '$panjang', '$tb', '$jumlah', '$satuan')");
+    if (!$query_insert) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bom';</script>";
+        exit;
+    }
+}
+
+// Fungsi Ambil Data BOM
+function getDataBOM(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT * FROM t_bom");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+
+    $array = [];
+    while ($bom = mysqli_fetch_array($result)) {
+        $array[] = $bom;
+    }
+    return $array;
+}
+
+// Fungsi Edit BOM
+function editBOM($bom_id, $id_produk, $nama_komponen, $panjang, $tb, $jumlah, $satuan) {
+    include "Database.php";
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "UPDATE t_bom SET id_produk=?, nama_komponen=?, panjang=?, tb=?, jumlah=?, satuan=? WHERE kode_bom=?");
+    mysqli_stmt_bind_param($query, 'isssisi', $id_produk, $nama_komponen, $panjang, $tb, $jumlah, $satuan, $bom_id);
+    mysqli_stmt_execute($query);
+    mysqli_stmt_close($query);
+    mysqli_close($conn);
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bom';</script>";
+    exit;
+}
+
+// Fungsi Hapus BOM
+function hapusBOM($bom_id){
+    include "Database.php";
+    $query = mysqli_query($conn, "DELETE FROM t_bom WHERE kode_bom='$bom_id'");
+    if (!$query) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bom';</script>";
+        exit;
+    }
+}
+
+// Fungsi Hitung Jumlah Baris BOM
+function countRowsBOM(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM t_bom");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_rows'];
+}
+
+
+// ==============================================
+//              Kontrol Database - Material Requirements Planning (MRP)
+// ============================================== 
+
+// Fungsi Tambah MRP
+function tambahMRP($id_mps, $kode_bom, $gr, $ohi, $nr, $por){
+    include "Database.php";
+
+    // Masukkan data ke database
+    $query_insert = mysqli_query($conn, "INSERT INTO t_mrp (id_mps, kode_bom, gr, ohi, nr, por) VALUES ('$id_mps', '$kode_bom', '$gr', '$ohi', '$nr', '$por')");
+    if (!$query_insert) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=mrp';</script>";
+        exit;
+    }
+}
+
+// Fungsi Ambil Data MRP
+function getDataMRP(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT * FROM t_mrp");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+
+    $array = [];
+    while ($mrp = mysqli_fetch_array($result)) {
+        $array[] = $mrp;
+    }
+    return $array;
+}
+
+// Fungsi Edit MRP
+function editMRP($mrp_id, $id_mps, $kode_bom, $gr, $ohi, $nr, $por) {
+    include "Database.php";
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "UPDATE t_mrp SET id_mps=?, kode_bom=?, gr=?, ohi=?, nr=?, por=? WHERE id_mrp=?");
+    mysqli_stmt_bind_param($query, 'iissssi', $id_mps, $kode_bom, $gr, $ohi, $nr, $por, $mrp_id);
+    mysqli_stmt_execute($query);
+    mysqli_stmt_close($query);
+    mysqli_close($conn);
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mrp';</script>";
+    exit;
+}
+
+// Fungsi Hapus MRP
+function hapusMRP($mrp_id){
+    include "Database.php";
+    $query = mysqli_query($conn, "DELETE FROM t_mrp WHERE id_mrp='$mrp_id'");
+    if (!$query) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mrp';</script>";
+        exit;
+    }
+}
+
+// Fungsi Hitung Jumlah Baris MRP
+function countRowsMRP(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM t_mrp");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
