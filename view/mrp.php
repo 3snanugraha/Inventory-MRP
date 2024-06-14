@@ -67,6 +67,7 @@
           <p>Berikut adalah semua data Material Requirements Planning (MRP). Gunakan <code>.Search</code> untuk mencari atau memfilter data. Gunakan kolom <code>.Aksi</code> untuk mengolah data.</p>
           <a href="#" data-bs-toggle="modal" data-bs-target="#tambah-data-mrp" class="btn btn-outline-primary mt-2 mb-4 rounded-pill"><i class="bi bi-plus-circle"></i><span> Tambahkan data </span></a>
           <a href="#" onclick="location.reload();" class="btn btn-outline-warning mt-2 mb-4 rounded-pill"><i class="bi bi-arrow-clockwise"></i><span> Refresh data </span></a>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#keterangan-mrp" class="btn btn-outline-info mt-2 mb-4 rounded-pill"><i class="bi bi-info-circle"></i><span> Keterangan </span></a>
 
           <!-- Table with stripped rows -->
           <div class="table-responsive">
@@ -76,6 +77,7 @@
                   <th scope="col">#No</th>
                   <th scope="col">ID MPS</th>
                   <th scope="col">Kode BOM</th>
+                  <th scope="col">Nama Produk</th>
                   <th scope="col">GR</th>
                   <th scope="col">OHI</th>
                   <th scope="col">NR</th>
@@ -94,7 +96,55 @@
                   <tr>
                     <th scope="row"><b><?= $no; ?></b></th>
                     <td><?= $fetch_mrp['id_mps']; ?></td>
-                    <td><?= $fetch_mrp['kode_bom']; ?></td>
+                    <td>
+                      #
+                      <?= $fetch_mrp['kode_bom']; ?>
+                      <a href="#" data-bs-toggle="modal" data-bs-target="#detail-bom-<?= $fetch_mrp['kode_bom']; ?>" class="btn btn-sm btn-outline-primary rounded-pill">
+                        <i class="bi bi-eye"></i>
+                      </a>
+                      <!-- Modal Detail BOM -->
+                        <div class="modal fade" id="detail-bom-<?= $fetch_mrp['kode_bom']; ?>" tabindex="-1" aria-labelledby="detailBOMLabel-<?= $fetch_mrp['kode_bom']; ?>" aria-hidden="true">
+                          <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="detailBOMLabel-<?= $fetch_mrp['kode_bom']; ?>">Detail BOM (Kode: #<?= $fetch_mrp['kode_bom']; ?>)</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                <!-- Fetch and display the BOM details using PHP -->
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th scope="col">ID Produk</th>
+                                        <th scope="col">Nama Produk</th>
+                                        <th scope="col">Nama Komponen</th>
+                                        <th scope="col">Panjang</th>
+                                        <th scope="col">TB</th>
+                                        <th scope="col">Jumlah</th>
+                                        <th scope="col">Satuan</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                          <td><?= $fetch_mrp['id_produk']; ?></td>
+                                          <td><?= $fetch_mrp['nama_produk']; ?></td>
+                                          <td><?= $fetch_mrp['nama_komponen']; ?></td>
+                                          <td><?= $fetch_mrp['panjang']; ?></td>
+                                          <td><?= $fetch_mrp['tb']; ?></td>
+                                          <td><?= $fetch_mrp['jumlah']; ?></td>
+                                          <td><?= $fetch_mrp['satuan']; ?></td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                    </td>
+                    <td><?= $fetch_mrp['nama_produk']; ?></td>
                     <td><?= $fetch_mrp['gr']; ?></td>
                     <td><?= $fetch_mrp['ohi']; ?></td>
                     <td><?= $fetch_mrp['nr']; ?></td>
@@ -103,7 +153,7 @@
                       <a href="#" class="btn btn-sm btn-outline-warning rounded-pill mt-1" data-bs-toggle="modal" data-bs-target="#edit-data-mrp-<?= $fetch_mrp['id_mrp']; ?>"><i class="bi bi-pencil-square"></i></a>
                       <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" href="<?= $_SERVER['PHP_SELF'] . "?u=hapus-mrp&id=" . $fetch_mrp['id_mrp']; ?>" class="btn btn-sm btn-outline-danger rounded-pill mt-1"><i class="bi bi-trash"></i></a>
 
-                      <!-- Modal Edit Data MRP -->
+                     <!-- Modal Edit Data MRP -->
                       <div class="modal fade" id="edit-data-mrp-<?= $fetch_mrp['id_mrp']; ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editModalLabel-<?= $fetch_mrp['id_mrp']; ?>" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
                           <div class="modal-content">
@@ -134,7 +184,17 @@
                                     <label for="edit_id_mps">ID MPS</label>
                                   </div>
                                   <div class="col-9">
-                                    <input type="text" class="form-control rounded-pill" name="id_mps" id="edit_id_mps" value="<?= $fetch_mrp['id_mps']; ?>" required>
+                                    <select class="form-control rounded-pill" name="id_mps" id="edit_id_mps" required>
+                                    <option value="<?= $fetch_mrp['id_mps']; ?>" selected><?= $fetch_mrp['id_mps'] . ' - ' . $fetch_mrp['nama_produk'] . ' - ' . $fetch_mrp['order'] . ' - ' . $fetch_mrp['jadwal_export']; ?></option>
+                                      <?php
+                                      $data_mps = getDataMPS(); // Ambil data dari fungsi getDataMPS() atau sesuai dengan implementasi Anda
+                                      foreach ($data_mps as $mps) {
+                                        if ($mps['id_mps'] != $fetch_mrp['id_mps']) {
+                                          echo '<option value="' . $mps['id_mps'] . '">' . $mps['id_mps'] . ' - ' . $mps['nama_produk'] . ' - ' . $mps['order'] . ' - ' . $mps['jadwal_export'] . '</option>';
+                                        }
+                                      }
+                                      ?>
+                                    </select>
                                   </div>
                                 </div>
 
@@ -143,7 +203,17 @@
                                     <label for="edit_kode_bom">Kode BOM</label>
                                   </div>
                                   <div class="col-9">
-                                    <input type="text" class="form-control rounded-pill" name="kode_bom" id="edit_kode_bom" value="<?= $fetch_mrp['kode_bom']; ?>" required>
+                                    <select class="form-control rounded-pill" name="kode_bom" id="edit_kode_bom" required>
+                                    <option value="<?= $fetch_mrp['kode_bom']; ?>" selected><?= $fetch_mrp['kode_bom'] . ' - ' . $fetch_mrp['nama_produk'] . ' - ' . $fetch_mrp['nama_komponen']; ?></option>
+                                      <?php
+                                      $data_bom = getDataBOM(); // Ambil data dari fungsi getDataBOM() atau sesuai dengan implementasi Anda
+                                      foreach ($data_bom as $bom) {
+                                        if ($bom['kode_bom'] != $fetch_mrp['kode_bom']) {
+                                          echo '<option value="' . $bom['kode_bom'] . '">' . $bom['kode_bom'] . ' - ' . $bom['nama_produk'] . ' - ' . $bom['nama_komponen'] . '</option>';
+                                        }
+                                      }
+                                      ?>
+                                    </select>
                                   </div>
                                 </div>
 
@@ -184,8 +254,8 @@
                                 </div>
 
                                 <div class="text-center mt-5 mb-2">
-                                    <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
-                                    <button class="btn btn-primary rounded-pill" type="submit" name="edit-mrp">Simpan</button>
+                                  <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
+                                  <button class="btn btn-primary rounded-pill" type="submit" name="edit-mrp">Simpan</button>
                                 </div>
                               </form>
                             </div>
@@ -196,6 +266,8 @@
                         </div>
                       </div>
                       <!-- End Modal Edit Data MRP -->
+
+
                     </td>
                   </tr>
                 <?php } ?>

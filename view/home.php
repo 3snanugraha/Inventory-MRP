@@ -58,317 +58,120 @@
       </nav>
     </div><!-- End Page Title -->
     
-    <section class="section dashboard">
-      <div class="row">
-    
-        <!-- Kolom Kiri -->
-        <div class="col-lg-8">
-          <div class="row">
-    
-            <!-- Kartu Tingkat Stok -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card stock-card">
-    
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-    
-                    <li><a class="dropdown-item" href="#">Hari Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
-                  </ul>
-                </div>
-    
-                <div class="card-body">
-                  <h5 class="card-title">Tingkat Stok <span>| Hari Ini</span></h5>
-    
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-warning">
-                      <i class="bi bi-box"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>1500</h6>
-                      <span class="text-success small pt-1 fw-bold">5%</span> <span class="text-muted small pt-2 ps-1">peningkatan</span>
-                    </div>
-                  </div>
-                </div>
-    
-              </div>
-            </div><!-- Akhir Kartu Tingkat Stok -->
-    
-            <!-- Kartu Bahan Baku -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card raw-material-card">
-    
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-    
-                    <li><a class="dropdown-item" href="#">Hari Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
-                  </ul>
-                </div>
-    
-                <div class="card-body">
-                  <h5 class="card-title">Bahan Baku <span>| Bulan Ini</span></h5>
-    
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-success text-light">
-                      <i class="bi bi-boxes"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>3200 kg</h6>
-                      <span class="text-danger small pt-1 fw-bold">2%</span> <span class="text-muted small pt-2 ps-1">penurunan</span>
-                    </div>
-                  </div>
-                </div>
-    
-              </div>
-            </div><!-- Akhir Kartu Bahan Baku -->
-    
-            <!-- Kartu Pesanan Pembelian -->
-            <div class="col-xxl-4 col-xl-12">
-    
-              <div class="card info-card purchase-orders-card">
-    
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-    
-                    <li><a class="dropdown-item" href="#">Hari Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
-                  </ul>
-                </div>
-    
-                <div class="card-body">
-                  <h5 class="card-title">Pesanan Pembelian <span>| Tahun Ini</span></h5>
-    
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-info text-light">
-                      <i class="bi bi-file-earmark-text"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>120</h6>
-                      <span class="text-success small pt-1 fw-bold">15%</span> <span class="text-muted small pt-2 ps-1">peningkatan</span>
-                    </div>
-                  </div>
-    
-                </div>
-              </div>
-    
-            </div><!-- Akhir Kartu Pesanan Pembelian -->
-    
-            <!-- Laporan -->
-            <div class="col-12">
-              <div class="card">
-    
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-    
-                    <li><a class="dropdown-item" href="#">Hari Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
-                  </ul>
-                </div>
-    
-                <div class="card-body">
-                  <h5 class="card-title">Laporan <span>/Hari Ini</span></h5>
-    
-                  <!-- Grafik Garis -->
-                  <div id="reportsChart"></div>
-    
-                  <script>
-                    document.addEventListener("DOMContentLoaded", () => {
-                      new ApexCharts(document.querySelector("#reportsChart"), {
-                        series: [{
-                          name: 'Tingkat Stok',
-                          data: [31, 40, 28, 51, 42, 82, 56],
-                        }, {
-                          name: 'Bahan Baku',
-                          data: [11, 32, 45, 32, 34, 52, 41]
-                        }, {
-                          name: 'Pesanan Pembelian',
-                          data: [15, 11, 32, 18, 9, 24, 11]
-                        }],
-                        chart: {
-                          height: 350,
-                          type: 'area',
-                          toolbar: {
-                            show: false
-                          },
-                        },
-                        markers: {
-                          size: 4
-                        },
-                        colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                        fill: {
-                          type: "gradient",
-                          gradient: {
-                            shadeIntensity: 1,
-                            opacityFrom: 0.3,
-                            opacityTo: 0.4,
-                            stops: [0, 90, 100]
-                          }
-                        },
-                        dataLabels: {
-                          enabled: false
-                        },
-                        stroke: {
-                          curve: 'smooth',
-                          width: 2
-                        },
-                        xaxis: {
-                          type: 'datetime',
-                          categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
-                        },
-                        tooltip: {
-                          x: {
-                            format: 'dd/MM/yy HH:mm'
-                          },
-                        }
-                      }).render();
-                    });
-                  </script>
-                  <!-- Akhir Grafik Garis -->
-    
-                </div>
-    
-              </div>
-            </div><!-- Akhir Laporan -->
-    
-            <!-- Pembelian Terbaru -->
-            <div class="col-12">
-              <div class="card recent-purchases overflow-auto rounded-5">
+                  <section class="section dashboard">
+                  <div class="row">
 
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
+                      <!-- Kartu Data Produk -->
+                      <div class="col-xxl-4 col-md-6">
+                          <div class="card info-card product-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Data Produk</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-warning">
+                                          <i class="bi bi-box"></i>
+                                      </div>
+                                      <div class="ps-3">
+                                          <h6><?= countRowsProduk(); ?></h6>
+                                          <span class="text-muted small pt-2">Total produk tersedia</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- Akhir Kartu Data Produk -->
 
-                    <li><a class="dropdown-item" href="#">Hari Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
-                  </ul>
-                </div>
+                      <!-- Kartu Data Pelanggan -->
+                      <div class="col-xxl-4 col-md-6">
+                          <div class="card info-card customer-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Data Pelanggan</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-success text-light">
+                                          <i class="bi bi-people"></i>
+                                      </div>
+                                      <div class="ps-3">
+                                          <h6><?= countRowsCustomer(); ?></h6>
+                                          <span class="text-muted small pt-2">Total pelanggan terdaftar</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- Akhir Kartu Data Pelanggan -->
 
-                <div class="card-body">
-                  <h5 class="card-title">Pembelian Terbaru <span>| Hari Ini</span></h5>
+                      <!-- Kartu Data Bahan Baku -->
+                      <div class="col-xxl-4 col-md-6">
+                          <div class="card info-card raw-material-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Data Bahan Baku</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-info text-light">
+                                          <i class="bi bi-boxes"></i>
+                                      </div>
+                                      <div class="ps-3">
+                                          <h6><?= countRowsBahanBaku(); ?></h6>
+                                          <span class="text-muted small pt-2">Total bahan baku tersedia</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- Akhir Kartu Data Bahan Baku -->
 
-                  <table class="table table-borderless datatable">
-                    <thead>
-                      <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Pemasok</th>
-                        <th scope="col">Material</th>
-                        <th scope="col">Kuantitas</th>
-                        <th scope="col">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="#">#2457</a></th>
-                        <td>ABC Suppliers</td>
-                        <td><a href="#" class="text-primary">Baja</a></td>
-                        <td>500 kg</td>
-                        <td><span class="badge bg-success">Diterima</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2147</a></th>
-                        <td>XYZ Traders</td>
-                        <td><a href="#" class="text-primary">Plastik</a></td>
-                        <td>300 kg</td>
-                        <td><span class="badge bg-warning">Tertunda</span></td>
-                      </tr>
-                      <tr>
-                        <th scope="row"><a href="#">#2049</a></th>
-                        <td>LMN Industries</td>
-                        <td><a href="#" class="text-primary">Tembaga</a></td>
-                        <td>700 kg</td>
-                        <td><span class="badge bg-danger">Terlambat</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                      <!-- Kartu Data Bahan Baku Masuk -->
+                      <div class="col-xxl-4 col-md-6">
+                          <div class="card info-card material-in-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Data Bahan Baku Masuk</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-warning">
+                                          <i class="bi bi-box"></i>
+                                      </div>
+                                      <div class="ps-3">
+                                          <h6><?= countRowsBahanBakuMasuk(); ?></h6>
+                                          <span class="text-muted small pt-2">Total bahan baku masuk</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- Akhir Kartu Data Bahan Baku Masuk -->
 
-                </div>
+                      <!-- Kartu Data Bill of Materials (BOM) -->
+                      <div class="col-xxl-4 col-md-6">
+                          <div class="card info-card bom-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Data BOM</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-success text-light">
+                                          <i class="bi bi-archive"></i>
+                                      </div>
+                                      <div class="ps-3">
+                                          <h6><?= countRowsBOM(); ?></h6>
+                                          <span class="text-muted small pt-2">Total Bill of Materials (BOM)</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- Akhir Kartu Data Bill of Materials (BOM) -->
 
-              </div>
-            </div><!-- Akhir Pembelian Terbaru -->
-
-            </div>
-            </div><!-- Akhir Kolom Kiri -->
-
-            <!-- Kolom Kanan -->
-            <div class="col-lg-4">
-
-              <!-- Pengendalian Persediaan -->
-              <div class="card">
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Hari Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Bulan Ini</a></li>
-                    <li><a class="dropdown-item" href="#">Tahun Ini</a></li>
-                  </ul>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">Pengendalian Persediaan <span>| Hari Ini</span></h5>
-
-                  <div class="activity">
-
-                    <div class="activity-item d-flex">
-                      <div class="activite-label">32 menit</div>
-                      <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                      <div class="activity-content">
-                        Menambahkan <a href="#" class="fw-bold text-dark">150 kg Baja</a> ke stok.
-                      </div>
-                    </div><!-- Akhir item aktivitas-->
-
-                    <div class="activity-item d-flex">
-                      <div class="activite-label">1 jam</div>
-                      <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                      <div class="activity-content">
-                        Memindahkan <a href="#" class="fw-bold text-dark">200 kg Plastik</a> ke lini produksi.
-                      </div>
-                    </div><!-- Akhir item aktivitas-->
-
-                    <div class="activity-item d-flex">
-                      <div class="activite-label">2 jam</div>
-                      <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                      <div class="activity-content">
-                        Mencatat <a href="#" class="fw-bold text-dark">100 kg Tembaga</a> sebagai rusak.
-                      </div>
-                    </div><!-- Akhir item aktivitas-->
+                      <!-- Kartu Data MRP -->
+                      <div class="col-xxl-4 col-md-6">
+                          <div class="card info-card mrp-card">
+                              <div class="card-body">
+                                  <h5 class="card-title">Data MRP</h5>
+                                  <div class="d-flex align-items-center">
+                                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center bg-info text-light">
+                                          <i class="bi bi-file-earmark-text"></i>
+                                      </div>
+                                      <div class="ps-3">
+                                          <h6><?= countRowsMRP(); ?></h6>
+                                          <span class="text-muted small pt-2">Total Material Requirements Planning (MRP)</span>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div><!-- Akhir Kartu Data MRP -->
 
                   </div>
+              </section>
 
-                </div>
-              </div><!-- Akhir Pengendalian Persediaan -->
-
-            </div><!-- Akhir Kolom Kanan -->
-
-            </div>
-            </section>
 
             </main><!-- End #main -->
 

@@ -388,7 +388,15 @@
               <label for="tambah_id_mps">ID MPS</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="id_mps" id="tambah_id_mps" required>
+              <select class="form-control rounded-pill" name="id_mps" id="tambah_id_mps" required>
+                <option value="">-- Pilih ID MPS --</option>
+                <?php
+                $data_mps = getDataMPS();
+                foreach ($data_mps as $mps) {
+                  echo '<option value="' . $mps['id_mps'] . '">' . $mps['id_mps'] . ' - ' . $mps['nama_produk'] . ' - ' . $mps['order'] . ' - ' . $mps['jadwal_export'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div>
 
@@ -397,9 +405,18 @@
               <label for="tambah_kode_bom">Kode BOM</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="kode_bom" id="tambah_kode_bom" required>
+              <select class="form-control rounded-pill" name="kode_bom" id="tambah_kode_bom" required>
+                <option value="">-- Pilih Kode BOM --</option>
+                <?php
+                $data_bom = getDataBOM();
+                foreach ($data_bom as $bom) {
+                  echo '<option value="' . $bom['kode_bom'] . '">' . $bom['kode_bom'] . ' - ' . $bom['nama_produk'] .' - ' . $bom['nama_komponen'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div>
+
 
           <div class="row mt-2">
             <div class="col-3">
@@ -450,3 +467,53 @@
   </div>
 </div>
 <!-- End Modal Tambah Data MRP -->
+
+<!-- Modal Keterangan MRP -->
+<div class="modal fade" id="keterangan-mrp" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="keteranganModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="keteranganModalLabel">Keterangan MRP</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6 class="text-center">Penjelasan Tentang MRP</h6>
+        <hr>
+        <div class="row mt-2">
+          <div class="col-3">
+            <label for="gr">GR</label>
+          </div>
+          <div class="col-9">
+            <p>GR (Gross Requirements) adalah total kebutuhan material untuk suatu periode tertentu.</p>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">
+            <label for="ohi">OHI</label>
+          </div>
+          <div class="col-9">
+            <p>OHI (On Hand Inventory) adalah jumlah stok material yang tersedia saat ini.</p>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">
+            <label for="nr">NR</label>
+          </div>
+          <div class="col-9">
+            <p>NR (Net Requirements) adalah kebutuhan material setelah mempertimbangkan stok yang tersedia (OHI) dan pesanan yang sedang berjalan.</p>
+          </div>
+        </div>
+
+        <div class="row mt-2">
+          <div class="col-3">
+            <label for="por">POR</label>
+          </div>
+          <div class="col-9">
+            <p>POR (Planned Order Releases) adalah pesanan yang direncanakan untuk memenuhi kebutuhan material.</p>
+          </div>
+        </div>
+
+        <div class="text-center mt-5 mb-2">
+      

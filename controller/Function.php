@@ -396,7 +396,7 @@ function tambahBOM($id_produk, $nama_komponen, $panjang, $tb, $jumlah, $satuan){
 // Fungsi Ambil Data BOM
 function getDataBOM(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT * FROM t_bom");
+    $result = mysqli_query($conn, "SELECT * FROM t_bom INNER JOIN t_produk ON t_bom.id_produk=t_produk.id_produk");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
@@ -466,7 +466,7 @@ function tambahMRP($id_mps, $kode_bom, $gr, $ohi, $nr, $por){
 // Fungsi Ambil Data MRP
 function getDataMRP(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT * FROM t_mrp INNER JOIN t_bom ON t_mrp.kode_bom=t_bom.kode_bom INNER JOIN t_mps ON t_mrp.id_mps=t_mps.id_mps");
+    $result = mysqli_query($conn, "SELECT * FROM t_mrp INNER JOIN t_bom ON t_mrp.kode_bom=t_bom.kode_bom INNER JOIN t_mps ON t_mrp.id_mps=t_mps.id_mps INNER JOIN t_produk ON t_bom.id_produk= t_produk.id_produk");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
@@ -487,7 +487,7 @@ function editMRP($mrp_id, $id_mps, $kode_bom, $gr, $ohi, $nr, $por) {
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mrp';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=mrp';</script>";
     exit;
 }
 
@@ -498,7 +498,7 @@ function hapusMRP($mrp_id){
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mrp';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=mrp';</script>";
         exit;
     }
 }
@@ -513,6 +513,76 @@ function countRowsMRP(){
     $row = mysqli_fetch_assoc($result);
     return $row['total_rows'];
 }
+
+// ==============================================
+//              Kontrol Database - Master Production Schedule (MPS)
+// ==============================================
+
+// Fungsi Tambah MPS
+function tambahMPS($id_produk, $order, $jadwal_export, $wk, $tanggal){
+    include "Database.php";
+
+    // Masukkan data ke database
+    $query_insert = mysqli_query($conn, "INSERT INTO t_mps (id_produk, order, jadwal_export, wk, tanggal) VALUES ('$id_produk', '$order', '$jadwal_export', '$wk', '$tanggal')");
+    if (!$query_insert) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=mps';</script>";
+        exit;
+    }
+}
+
+// Fungsi Ambil Data MPS
+function getDataMPS(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT * FROM t_mps INNER JOIN t_produk ON t_mps.id_produk=t_produk.id_produk");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+
+    $array = [];
+    while ($mps = mysqli_fetch_array($result)) {
+        $array[] = $mps;
+    }
+    return $array;
+}
+
+// Fungsi Edit MPS
+function editMPS($mps_id, $id_produk, $order, $jadwal_export, $wk, $tanggal) {
+    include "Database.php";
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "UPDATE t_mps SET id_produk=?, order=?, jadwal_export=?, wk=?, tanggal=? WHERE id_mps=?");
+    mysqli_stmt_bind_param($query, 'iisssi', $id_produk, $order, $jadwal_export, $wk, $tanggal, $mps_id);
+    mysqli_stmt_execute($query);
+    mysqli_stmt_close($query);
+    mysqli_close($conn);
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mps';</script>";
+    exit;
+}
+
+// Fungsi Hapus MPS
+function hapusMPS($mps_id){
+    include "Database.php";
+    $query = mysqli_query($conn, "DELETE FROM t_mps WHERE id_mps='$mps_id'");
+    if (!$query) {
+        die("Query error: " . mysqli_error($conn));
+    } else {
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mps';</script>";
+        exit;
+    }
+}
+
+// Fungsi Hitung Jumlah Baris MPS
+function countRowsMPS(){
+    include "Database.php";
+    $result = mysqli_query($conn, "SELECT COUNT(*) AS total_rows FROM t_mps");
+    if (!$result) {
+        die("Query error: " . mysqli_error($conn));
+    }
+    $row = mysqli_fetch_assoc($result);
+    return $row['total_rows'];
+}
+
 
 
 
