@@ -177,7 +177,7 @@ if (isset($_POST['tambah-bahan_baku'])) {
 }
 
 // Tambah Bahan Baku Masuk Handler
-if (isset($_POST['tambah-bahan_baku_masuk'])) {
+if (isset($_POST['tambah-bahan-baku-masuk'])) {
     include "Database.php";
     $id_bahan_baku = mysqli_real_escape_string($conn, $_POST['id_bahan_baku']);
     $nama_supplier = mysqli_real_escape_string($conn, $_POST['nama_supplier']);
@@ -271,15 +271,14 @@ if (isset($_POST['edit-bahan_baku'])) {
 }
 
 // Edit Bahan Baku Masuk Handler
-if (isset($_POST['edit-bahan_baku_masuk'])) {
+if (isset($_POST['edit-bahan-baku-masuk'])) {
     include "Database.php";
-    $id_bahan_baku_masuk = mysqli_real_escape_string($conn, $_POST['id_bahan_baku_masuk']);
+    $id_bahan_baku_masuk = mysqli_real_escape_string($conn, $_POST['no_bahan_masuk']);
     $id_bahan_baku = mysqli_real_escape_string($conn, $_POST['id_bahan_baku']);
     $nama_supplier = mysqli_real_escape_string($conn, $_POST['nama_supplier']);
     $jumlah_bahan_masuk = mysqli_real_escape_string($conn, $_POST['jumlah_bahan_masuk']);
     $tanggal_bahan_masuk = mysqli_real_escape_string($conn, $_POST['tanggal_bahan_masuk']);
-    $created_at = mysqli_real_escape_string($conn, $_POST['created_at']);
-    editBahanBakuMasuk($id_bahan_baku_masuk, $id_bahan_baku, $nama_supplier, $jumlah_bahan_masuk, $tanggal_bahan_masuk, $created_at);
+    editBahanBakuMasuk($id_bahan_baku_masuk, $id_bahan_baku, $nama_supplier, $jumlah_bahan_masuk, $tanggal_bahan_masuk);
 }
 
 // Edit BOM Handler

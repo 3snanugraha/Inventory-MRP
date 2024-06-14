@@ -318,7 +318,7 @@ function tambahBahanBakuMasuk($id_bahan_baku, $nama_supplier, $jumlah_bahan_masu
     if (!$query_insert) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan-baku-masuk';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan_baku_masuk';</script>";
         exit;
     }
 }
@@ -347,7 +347,7 @@ function editBahanBakuMasuk($bahan_baku_masuk_id, $id_bahan_baku, $nama_supplier
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku-masuk';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan_baku_masuk';</script>";
     exit;
 }
 
@@ -358,7 +358,7 @@ function hapusBahanBakuMasuk($bahan_baku_masuk_id){
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku-masuk';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan_baku_masuk';</script>";
         exit;
     }
 }
@@ -466,7 +466,7 @@ function tambahMRP($id_mps, $kode_bom, $gr, $ohi, $nr, $por){
 // Fungsi Ambil Data MRP
 function getDataMRP(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT * FROM t_mrp");
+    $result = mysqli_query($conn, "SELECT * FROM t_mrp INNER JOIN t_bom ON t_mrp.kode_bom=t_bom.kode_bom INNER JOIN t_mps ON t_mrp.id_mps=t_mps.id_mps");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
