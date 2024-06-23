@@ -2,7 +2,7 @@
 $host="localhost";
 $user="root";
 $pass="";
-$database="mrp_inventory";
+$database="inventory_mrp";
 
 $conn = new mysqli($host,$user,$pass,$database);
 
