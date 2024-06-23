@@ -78,7 +78,7 @@ if(isset($_GET['u'])){
         hapusCustomer($id);
     }
     // Hapus Bahan Baku 
-    else if ($_GET['u'] == 'hapus-bahan_baku') {
+    else if ($_GET['u'] == 'hapus-bahan-baku') {
         SessionCheck();
         $id_bahan_baku = $_GET['id'];
         hapusBahanBaku($id_bahan_baku);
@@ -165,7 +165,7 @@ if(isset($_POST['tambah-produk'])) {
 }
 
 // Tambah Bahan Baku Handler
-if (isset($_POST['tambah-bahan_baku'])) {
+if (isset($_POST['tambah-bahan-baku'])) {
     include "Database.php";
     $kode_bom = mysqli_real_escape_string($conn, $_POST['kode_bom']);
     $id_produk = mysqli_real_escape_string($conn, $_POST['id_produk']);
@@ -257,7 +257,7 @@ if (isset($_POST['edit-produk'])) {
 }
 
 // Edit Bahan Baku Handler
-if (isset($_POST['edit-bahan_baku'])) {
+if (isset($_POST['edit-bahan-baku'])) {
     include "Database.php";
     $id_bahan_baku = mysqli_real_escape_string($conn, $_POST['id_bahan_baku']);
     $kode_bom = mysqli_real_escape_string($conn, $_POST['kode_bom']);
@@ -266,8 +266,7 @@ if (isset($_POST['edit-bahan_baku'])) {
     $jenis_bahan_baku = mysqli_real_escape_string($conn, $_POST['jenis_bahan_baku']);
     $stok_awal = mysqli_real_escape_string($conn, $_POST['stok_awal']);
     $stok_akhir = mysqli_real_escape_string($conn, $_POST['stok_akhir']);
-    $created_at = mysqli_real_escape_string($conn, $_POST['created_at']);
-    editBahanBaku($id_bahan_baku, $kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_baku, $stok_awal, $stok_akhir, $created_at);
+    editBahanBaku($id_bahan_baku, $kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_baku, $stok_awal, $stok_akhir);
 }
 
 // Edit Bahan Baku Masuk Handler
@@ -318,8 +317,7 @@ if (isset($_POST['edit-mps'])) {
     $jadwal_export = mysqli_real_escape_string($conn, $_POST['jadwal_export']);
     $wk = mysqli_real_escape_string($conn, $_POST['wk']);
     $tanggal = mysqli_real_escape_string($conn, $_POST['tanggal']);
-    $created_at = mysqli_real_escape_string($conn, $_POST['created_at']);
-    editMPS($id_mps, $id_produk, $order, $jadwal_export, $wk, $tanggal, $created_at);
+    editMPS($id_mps, $id_produk, $order, $jadwal_export, $wk, $tanggal);
 }
 
 // Edit Pesanan Handler

@@ -132,10 +132,18 @@
 
                                 <div class="row mt-2">
                                   <div class="col-3">
-                                    <label for="edit_id_produk">ID Produk</label>
+                                    <label for="tambah_id_produk">ID Produk</label>
                                   </div>
                                   <div class="col-9">
-                                    <input type="text" class="form-control rounded-pill" name="id_produk" id="edit_id_produk" value="<?= $fetch_bom['id_produk']; ?>" required>
+                                    <select class="form-control rounded-pill" name="id_produk" id="tambah_id_produk" required>
+                                      <option value="<?= $fetch_bom['id_produk']; ?>"><?= $fetch_bom['id_produk'] . " - " . $fetch_bom['nama_produk']; ?></option>
+                                      <?php
+                                      $data_produk = getDataProduk();
+                                      foreach ($data_produk as $produk) {
+                                        echo '<option value="' . $produk['id_produk'] . '">' . $produk['id_produk'] . ' - ' . $produk['nama_produk'] . '</option>';
+                                      }
+                                      ?>
+                                    </select>
                                   </div>
                                 </div>
 

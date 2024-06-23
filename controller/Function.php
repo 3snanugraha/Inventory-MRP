@@ -249,7 +249,7 @@ function tambahBahanBaku($kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_b
     if (!$query_insert) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan-baku';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan_baku';</script>";
         exit;
     }
 }
@@ -257,7 +257,7 @@ function tambahBahanBaku($kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_b
 // Fungsi Ambil Data Bahan Baku
 function getDataBahanBaku(){
     include "Database.php";
-    $result = mysqli_query($conn, "SELECT * FROM t_bahan_baku");
+    $result = mysqli_query($conn, "SELECT * FROM t_bahan_baku INNER JOIN t_produk ON t_bahan_baku.id_produk=t_produk.id_produk INNER JOIN t_bom ON t_bahan_baku.kode_bom=t_bom.kode_bom");
     if (!$result) {
         die("Query error: " . mysqli_error($conn));
     }
@@ -278,7 +278,7 @@ function editBahanBaku($bahan_baku_id, $kode_bom, $id_produk, $nama_bahan_baku, 
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan_baku';</script>";
     exit;
 }
 
@@ -289,7 +289,7 @@ function hapusBahanBaku($bahan_baku_id){
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bahan-baku';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bahan_baku';</script>";
         exit;
     }
 }
@@ -417,7 +417,7 @@ function editBOM($bom_id, $id_produk, $nama_komponen, $panjang, $tb, $jumlah, $s
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bom';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=bom';</script>";
     exit;
 }
 
@@ -522,15 +522,26 @@ function countRowsMRP(){
 function tambahMPS($id_produk, $order, $jadwal_export, $wk, $tanggal){
     include "Database.php";
 
-    // Masukkan data ke database
-    $query_insert = mysqli_query($conn, "INSERT INTO t_mps (id_produk, order, jadwal_export, wk, tanggal) VALUES ('$id_produk', '$order', '$jadwal_export', '$wk', '$tanggal')");
-    if (!$query_insert) {
+    // Menggunakan prepared statement untuk keamanan
+    $query = mysqli_prepare($conn, "INSERT INTO t_mps (id_produk, `order`, jadwal_export, wk, tanggal) VALUES (?, ?, ?, ?, ?)");
+    if (!$query) {
         die("Query error: " . mysqli_error($conn));
+    }
+    
+    // Bind parameters
+    mysqli_stmt_bind_param($query, 'issss', $id_produk, $order, $jadwal_export, $wk, $tanggal);
+    
+    // Execute the statement
+    if (!mysqli_stmt_execute($query)) {
+        die("Execute error: " . mysqli_stmt_error($query));
     } else {
+        mysqli_stmt_close($query);
+        mysqli_close($conn);
         echo "<script>window.location='$_SERVER[PHP_SELF]?u=mps';</script>";
         exit;
     }
 }
+
 
 // Fungsi Ambil Data MPS
 function getDataMPS(){
@@ -551,12 +562,12 @@ function getDataMPS(){
 function editMPS($mps_id, $id_produk, $order, $jadwal_export, $wk, $tanggal) {
     include "Database.php";
     // Menggunakan prepared statement untuk keamanan
-    $query = mysqli_prepare($conn, "UPDATE t_mps SET id_produk=?, order=?, jadwal_export=?, wk=?, tanggal=? WHERE id_mps=?");
-    mysqli_stmt_bind_param($query, 'iisssi', $id_produk, $order, $jadwal_export, $wk, $tanggal, $mps_id);
+    $query = mysqli_prepare($conn, "UPDATE t_mps SET id_produk=?, `order`=?, jadwal_export=?, wk=?, tanggal=? WHERE id_mps=?");
+    mysqli_stmt_bind_param($query, 'issssi', $id_produk, $order, $jadwal_export, $wk, $tanggal, $mps_id);
     mysqli_stmt_execute($query);
     mysqli_stmt_close($query);
     mysqli_close($conn);
-    echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mps';</script>";
+    echo "<script>window.location='$_SERVER[PHP_SELF]?u=mps';</script>";
     exit;
 }
 
@@ -567,7 +578,7 @@ function hapusMPS($mps_id){
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-mps';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=mps';</script>";
         exit;
     }
 }

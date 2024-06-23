@@ -59,19 +59,6 @@
   </li><!-- End BOM Nav -->
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#mrp-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-gear"></i><span>MRP</span><i class="bi bi-chevron-down ms-auto"></i>
-    </a>
-    <ul id="mrp-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-      <li>
-        <a href="<?= $_SERVER['PHP_SELF'] . '?u=mrp'; ?>">
-          <i class="bi bi-circle"></i><span>Daftar MRP</span>
-        </a>
-      </li>
-    </ul>
-  </li><!-- End MRP Nav -->
-
-  <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#mps-nav" data-bs-toggle="collapse" href="#">
       <i class="bi bi-calendar3"></i><span>MPS</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
@@ -85,22 +72,19 @@
   </li><!-- End MPS Nav -->
 
   <li class="nav-item">
-    <a class="nav-link collapsed" data-bs-target="#pesanan-nav" data-bs-toggle="collapse" href="#">
-      <i class="bi bi-file-earmark-text"></i><span>Pesanan</span><i class="bi bi-chevron-down ms-auto"></i>
+    <a class="nav-link collapsed" data-bs-target="#mrp-nav" data-bs-toggle="collapse" href="#">
+      <i class="bi bi-gear"></i><span>MRP</span><i class="bi bi-chevron-down ms-auto"></i>
     </a>
-    <ul id="pesanan-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+    <ul id="mrp-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
       <li>
-        <a href="<?= $_SERVER['PHP_SELF'] . '?u=pesanan'; ?>">
-          <i class="bi bi-circle"></i><span>Daftar Pesanan</span>
-        </a>
-      </li>
-      <li>
-        <a href="<?= $_SERVER['PHP_SELF'] . '?u=dtl_pesanan'; ?>">
-          <i class="bi bi-circle"></i><span>Detail Pesanan</span>
+        <a href="<?= $_SERVER['PHP_SELF'] . '?u=mrp'; ?>">
+          <i class="bi bi-circle"></i><span>Daftar MRP</span>
         </a>
       </li>
     </ul>
-  </li><!-- End Pesanan Nav -->
+  </li><!-- End MRP Nav -->
+
+  
 
   <li class="nav-item">
     <a class="nav-link collapsed" data-bs-target="#akun-nav" data-bs-toggle="collapse" href="#">

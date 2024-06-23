@@ -68,9 +68,11 @@
           <a href="#" data-bs-toggle="modal" data-bs-target="#tambah-data-mrp" class="btn btn-outline-primary mt-2 mb-4 rounded-pill"><i class="bi bi-plus-circle"></i><span> Tambahkan data </span></a>
           <a href="#" onclick="location.reload();" class="btn btn-outline-warning mt-2 mb-4 rounded-pill"><i class="bi bi-arrow-clockwise"></i><span> Refresh data </span></a>
           <a href="#" data-bs-toggle="modal" data-bs-target="#keterangan-mrp" class="btn btn-outline-info mt-2 mb-4 rounded-pill"><i class="bi bi-info-circle"></i><span> Keterangan </span></a>
-
+          <a href="#" onclick="printTable()" class="btn btn-outline-secondary mt-2 mb-4 rounded-pill">
+            <i class="bi bi-print"></i><span> Print Table </span>
+          </a>
           <!-- Table with stripped rows -->
-          <div class="table-responsive">
+          <div id="tableku" class="table-responsive">
             <table class="table datatable">
               <thead>
                 <tr>
@@ -307,6 +309,19 @@
 
   <!-- Template Main JS File -->
   <script src="../view/assets/js/main.js"></script>
+<!-- Place this JavaScript code at the end of your HTML body -->
+<script>
+  function printTable() {
+    var printContent = document.getElementById("tableku").innerHTML;
+      var originalContent = document.body.innerHTML;
+
+      document.body.innerHTML = printContent;
+
+      window.print();
+
+      document.body.innerHTML = originalContent;
+  }
+</script>
 
 </body>
 

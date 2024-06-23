@@ -135,7 +135,15 @@
                                     <label for="edit_kode_bom">Kode BOM</label>
                                   </div>
                                   <div class="col-9">
-                                    <input type="text" class="form-control rounded-pill" name="kode_bom" id="edit_kode_bom" value="<?= $fetch_bahan_baku['kode_bom']; ?>" required>
+                                    <select class="form-control rounded-pill" name="kode_bom" id="tambah_kode_bom" required>
+                                    <option value="<?= $fetch_bahan_baku['kode_bom']; ?>"><?= $fetch_bahan_baku['kode_bom'] . " - " .  $fetch_bahan_baku['nama_produk'] . " - " . $fetch_bahan_baku['nama_komponen']; ?></option>
+                                    <?php
+                                    $data_bom = getDataBOM();
+                                    foreach ($data_bom as $bom) {
+                                      echo '<option value="' . $bom['kode_bom'] . '">' . $bom['kode_bom'] . ' - ' . $bom['nama_produk'] .' - ' . $bom['nama_komponen'] . '</option>';
+                                    }
+                                    ?>
+                                  </select>
                                   </div>
                                 </div>
 
@@ -183,13 +191,13 @@
                                     <input type="text" class="form-control rounded-pill" name="stok_akhir" id="edit_stok_akhir" value="<?= $fetch_bahan_baku['stok_akhir']; ?>" required>
                                   </div>
                                 </div>
-
-                              </form>
-                            </div>
-                            <div class="modal-footer d-flex justify-content-center">
+                              <div class="hr mt-4 mb-4 text-center">
                               <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
                               <button class="btn btn-primary rounded-pill" type="submit" name="edit-bahan-baku">Simpan</button>
+                              </div>
+                            </form>
                             </div>
+
                           </div>
                         </div>
                       </div>

@@ -183,12 +183,14 @@
                                     <input type="text" class="form-control rounded-pill" name="load" id="edit_load" value="<?= $fetch_produk['load']; ?>" required>
                                   </div>
                                 </div>
+
+                                <div class="hr mt-4 mb-4 text-center">
+                                  <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
+                                  <button class="btn btn-primary rounded-pill" type="submit" name="edit-produk">Simpan</button>
+                                  </form>
+                                </div>
                             </div>
-                            <div class="modal-footer d-flex justify-content-center">
-                              <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
-                              <button class="btn btn-primary rounded-pill" type="submit" name="edit-produk">Simpan</button>
-                              </form>
-                            </div>
+
                           </div>
                         </div>
                       </div>

@@ -143,7 +143,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="post">
+        <form method="POST">
           <div class="d-flex justify-content-center">
             <img class="img-fluid" width="120px" src="../view/assets/img/material.png" rel="icon">
           </div>
@@ -156,7 +156,15 @@
               <label for="tambah_kode_bom">Kode BOM</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="kode_bom" id="tambah_kode_bom" required>
+              <select class="form-control rounded-pill" name="kode_bom" id="tambah_kode_bom" required>
+                <option value="">-- Pilih Kode BOM --</option>
+                <?php
+                $data_bom = getDataBOM();
+                foreach ($data_bom as $bom) {
+                  echo '<option value="' . $bom['kode_bom'] . '">' . $bom['kode_bom'] . ' - ' . $bom['nama_produk'] .' - ' . $bom['nama_komponen'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div>
 
@@ -165,7 +173,16 @@
               <label for="tambah_id_produk">ID Produk</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="id_produk" id="tambah_id_produk" required>
+              <select class="form-control rounded-pill" name="id_produk" id="tambah_id_produk" required>
+                <option value="">-- Pilih ID Produk --</option>
+                <?php
+                // Misalnya, $data_produk adalah array yang berisi data produk (sesuaikan dengan logika aplikasi Anda)
+                $data_produk = getDataProduk();
+                foreach ($data_produk as $produk) {
+                  echo '<option value="' . $produk['id_produk'] . '">' . $produk['id_produk'] . ' - ' . $produk['nama_produk'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div>
 
@@ -206,7 +223,7 @@
           </div>
 
       </div>
-      <div class="modal-footer d-flex justify-content-center">
+      <div class="mt-4 text-center mb-5">
         <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Batalkan</button>
         <button class="btn btn-primary rounded-pill" type="submit" name="tambah-bahan-baku">Simpan</button>
         </form>
@@ -234,12 +251,22 @@
           <h6 class="text-center">Silahkan isi data dengan lengkap di bawah ini. </h6>
           <hr>
 
+
           <div class="row mt-2">
             <div class="col-3">
               <label for="tambah_id_bahan_baku">ID Bahan Baku</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="id_bahan_baku" id="tambah_id_bahan_baku" required>
+              <select class="form-control rounded-pill" name="id_bahan_baku" id="tambah_id_bahan_baku" required>
+                <option value="">-- Pilih Bahan Baku --</option>
+                <?php
+                // Misalnya, $data_produk adalah array yang berisi data produk (sesuaikan dengan logika aplikasi Anda)
+                $data_produk = getDataBahanBaku();
+                foreach ($data_produk as $produk) {
+                  echo '<option value="' . $produk['id_bahan_baku'] . '">' . $produk['id_bahan_baku'] . ' - ' . $produk['nama_bahan_baku'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div>
 
@@ -303,7 +330,16 @@
               <label for="tambah_id_produk">ID Produk</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="id_produk" id="tambah_id_produk" required>
+              <select class="form-control rounded-pill" name="id_produk" id="tambah_id_produk" required>
+                <option value="">-- Pilih ID Produk --</option>
+                <?php
+                // Misalnya, $data_produk adalah array yang berisi data produk (sesuaikan dengan logika aplikasi Anda)
+                $data_produk = getDataProduk();
+                foreach ($data_produk as $produk) {
+                  echo '<option value="' . $produk['id_produk'] . '">' . $produk['id_produk'] . ' - ' . $produk['nama_produk'] . '</option>';
+                }
+                ?>
+              </select>
             </div>
           </div>
 
@@ -505,46 +541,37 @@
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="tambah_tipe">Tipe</label>
+              <label for="tambah_order">Order</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="tipe" id="tambah_tipe" required>
+              <input type="text" class="form-control rounded-pill" name="order" id="tambah_order" required>
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="tambah_profil">Profil</label>
+              <label for="tambah_jadwal_export">Jadwal Export</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="profil" id="tambah_profil" required>
+              <input type="date" class="form-control rounded-pill" name="jadwal_export" id="tambah_jadwal_export" required>
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="tambah_warna">Warna</label>
+              <label for="tambah_wk">Wk</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="warna" id="tambah_warna" required>
+              <input type="text" class="form-control rounded-pill" name="wk" id="tambah_wk" required>
             </div>
           </div>
 
           <div class="row mt-2">
             <div class="col-3">
-              <label for="tambah_size">Size</label>
+              <label for="tambah_tanggal">Tanggal</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="size" id="tambah_size" required>
-            </div>
-          </div>
-
-          <div class="row mt-2">
-            <div class="col-3">
-              <label for="tambah_load">Load</label>
-            </div>
-            <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="load" id="tambah_load" required>
+              <input type="date" class="form-control rounded-pill" name="tanggal" id="tambah_tanggal" required>
             </div>
           </div>
 
@@ -553,6 +580,7 @@
             <button class="btn btn-primary rounded-pill" type="submit" name="tambah-mps">Simpan</button>
           </div>
         </form>
+        
       </div>
       <div class="modal-footer d-flex justify-content-center">
 

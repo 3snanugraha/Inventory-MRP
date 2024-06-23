@@ -79,7 +79,7 @@
                                         <th scope="col">ID Produk</th>
                                         <th scope="col">Order</th>
                                         <th scope="col">Jadwal Export</th>
-                                        <th scope="col">Waktu Kompetisi</th>
+                                        <th scope="col">Wk</th>
                                         <th scope="col">Tanggal</th>
                                         <th scope="col">Aksi</th>
                                     </tr>
@@ -184,13 +184,13 @@
                                                                             <label for="edit_jadwal_export">Jadwal Export</label>
                                                                         </div>
                                                                         <div class="col-9">
-                                                                            <input type="text" class="form-control rounded-pill" name="jadwal_export" id="edit_jadwal_export" value="<?= $fetch_mps['jadwal_export']; ?>" required>
+                                                                            <input type="date" class="form-control rounded-pill" name="jadwal_export" id="edit_jadwal_export" value="<?= $fetch_mps['jadwal_export']; ?>" required>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="row mt-2">
                                                                         <div class="col-3">
-                                                                            <label for="edit_wk">Waktu Kompetisi</label>
+                                                                            <label for="edit_wk">Wk</label>
                                                                         </div>
                                                                         <div class="col-9">
                                                                             <input type="text" class="form-control rounded-pill" name="wk" id="edit_wk" value="<?= $fetch_mps['wk']; ?>" required>
@@ -202,7 +202,7 @@
                                                                             <label for="edit_tanggal">Tanggal</label>
                                                                         </div>
                                                                         <div class="col-9">
-                                                                            <input type="text" class="form-control rounded-pill" name="tanggal" id="edit_tanggal" value="<?= $fetch_mps['tanggal']; ?>" required>
+                                                                            <input type="date" class="form-control rounded-pill" name="tanggal" id="edit_tanggal" value="<?= $fetch_mps['tanggal']; ?>" required>
                                                                         </div>
                                                                     </div>
 
