@@ -143,7 +143,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="POST">
+        <form method="POST" onsubmit="return validateForm()">
           <div class="d-flex justify-content-center">
             <img class="img-fluid" width="120px" src="../view/assets/img/material.png" rel="icon">
           </div>
@@ -176,7 +176,6 @@
               <select class="form-control rounded-pill" name="id_produk" id="tambah_id_produk" required>
                 <option value="">-- Pilih ID Produk --</option>
                 <?php
-                // Misalnya, $data_produk adalah array yang berisi data produk (sesuaikan dengan logika aplikasi Anda)
                 $data_produk = getDataProduk();
                 foreach ($data_produk as $produk) {
                   echo '<option value="' . $produk['id_produk'] . '">' . $produk['id_produk'] . ' - ' . $produk['nama_produk'] . '</option>';
@@ -209,7 +208,7 @@
               <label for="tambah_stok_awal">Stok Awal</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="stok_awal" id="tambah_stok_awal" required>
+              <input type="number" class="form-control rounded-pill" name="stok_awal" id="tambah_stok_awal" required>
             </div>
           </div>
 
@@ -218,7 +217,7 @@
               <label for="tambah_stok_akhir">Stok Akhir</label>
             </div>
             <div class="col-9">
-              <input type="text" class="form-control rounded-pill" name="stok_akhir" id="tambah_stok_akhir" required>
+              <input type="number" class="form-control rounded-pill" name="stok_akhir" id="tambah_stok_akhir" required>
             </div>
           </div>
 
@@ -580,7 +579,7 @@
             <button class="btn btn-primary rounded-pill" type="submit" name="tambah-mps">Simpan</button>
           </div>
         </form>
-        
+
       </div>
       <div class="modal-footer d-flex justify-content-center">
 

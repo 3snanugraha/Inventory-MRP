@@ -173,8 +173,15 @@ if (isset($_POST['tambah-bahan-baku'])) {
     $jenis_bahan_baku = mysqli_real_escape_string($conn, $_POST['jenis_bahan_baku']);
     $stok_awal = mysqli_real_escape_string($conn, $_POST['stok_awal']);
     $stok_akhir = mysqli_real_escape_string($conn, $_POST['stok_akhir']);
-    tambahBahanBaku($kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_baku, $stok_awal, $stok_akhir);
+
+    // Validasi stok akhir tidak boleh melebihi stok awal
+    if ($stok_akhir > $stok_awal) {
+        echo "<script>alert('Stok Akhir tidak boleh melebihi Stok Awal.'); window.history.back();</script>";
+    } else {
+        tambahBahanBaku($kode_bom, $id_produk, $nama_bahan_baku, $jenis_bahan_baku, $stok_awal, $stok_akhir);
+    }
 }
+
 
 // Tambah Bahan Baku Masuk Handler
 if (isset($_POST['tambah-bahan-baku-masuk'])) {
