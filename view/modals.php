@@ -143,7 +143,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form method="POST" onsubmit="return validateForm()">
+        <form method="POST">
           <div class="d-flex justify-content-center">
             <img class="img-fluid" width="120px" src="../view/assets/img/material.png" rel="icon">
           </div>
