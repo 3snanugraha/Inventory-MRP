@@ -428,7 +428,7 @@ function hapusBOM($bom_id){
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bom';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bom';</script>";
         exit;
     }
 }

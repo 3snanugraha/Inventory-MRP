@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 15, 2024 at 12:32 AM
+-- Generation Time: Jun 23, 2024 at 03:52 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -43,7 +43,9 @@ CREATE TABLE `t_bahan_baku` (
 
 INSERT INTO `t_bahan_baku` (`id_bahan_baku`, `kode_bom`, `id_produk`, `nama_bahan_baku`, `jenis_bahan_baku`, `stok_awal`, `stok_akhir`) VALUES
 (1, 1, 1, 'Bahan A', 'Jenis 1', 100, 80),
-(2, 2, 2, 'Bahan B', 'Jenis 2', 200, 150);
+(2, 2, 2, 'Bahan B', 'Jenis 2', 200, 150),
+(5, 3, 3, 'Bahan Baku C', 'Jenis C', 135, 11),
+(6, 1, 1, 'Bahan Baku F', 'Jenis F', 135, 33);
 
 -- --------------------------------------------------------
 
@@ -66,7 +68,8 @@ CREATE TABLE `t_bahan_baku_masuk` (
 INSERT INTO `t_bahan_baku_masuk` (`no_bahan_masuk`, `id_bahan_baku`, `nama_supplier`, `jumlah_bahan_masuk`, `tanggal_bahan_masuk`) VALUES
 (1, 1, 'Supplier ABC', 50, '2024-06-10'),
 (2, 2, 'Supplier B', 100, '2024-06-11'),
-(3, 1, 'PT CBA', 20, '2024-06-15');
+(3, 1, 'PT CBA', 20, '2024-06-15'),
+(4, 2, 'asc', 1555, '2024-06-23');
 
 -- --------------------------------------------------------
 
@@ -92,7 +95,8 @@ INSERT INTO `t_bom` (`kode_bom`, `id_produk`, `nama_komponen`, `panjang`, `tb`, 
 (1, 1, 'Komponen A', 10.50, 1.20, 5, 'PCS'),
 (2, 2, 'Komponen B', 20.00, 2.50, 10, 'PCS'),
 (3, 3, 'Komponen C', 15.00, 1.80, 8, 'PCS'),
-(4, 3, 'KOMP SPECIAL', 2.00, 3.00, 5, 'PCS');
+(4, 3, 'KOMP SPECIAL', 2.00, 3.00, 5, 'PCS'),
+(5, 1, 'KOMP Ctest', 13.00, 53.00, 13, '35');
 
 -- --------------------------------------------------------
 
@@ -136,8 +140,9 @@ CREATE TABLE `t_mps` (
 --
 
 INSERT INTO `t_mps` (`id_mps`, `id_produk`, `order`, `jadwal_export`, `wk`, `tanggal`) VALUES
-(1, 1, 100, '2024-07-01', 27, '2024-06-10'),
-(2, 2, 200, '2024-07-15', 29, '2024-06-24');
+(1, 1, 105, '2024-07-01', 27, '2024-06-10'),
+(2, 2, 200, '2024-07-15', 29, '2024-06-24'),
+(3, 3, 13, '2024-06-23', 4, '2024-06-25');
 
 -- --------------------------------------------------------
 
@@ -208,8 +213,8 @@ CREATE TABLE `t_pesanan` (
 --
 
 INSERT INTO `t_pesanan` (`no_pesan`, `id_pelanggan`, `tipe_kontainer`, `tgl_pesanan`, `tgl_pengiriman`, `total_load`, `total_qty`, `minggu_ke`) VALUES
-(1, 101, 'Kontainer A', '2024-06-10', '2024-07-01', 100.50, 150, 27),
-(2, 102, 'Kontainer B', '2024-06-11', '2024-07-02', 200.00, 300, 28);
+(1, 1, 'Kontainer A', '2024-06-10', '2024-07-01', 100.50, 150, 27),
+(2, 2, 'Kontainer B', '2024-06-11', '2024-07-02', 200.00, 300, 28);
 
 -- --------------------------------------------------------
 
@@ -232,10 +237,9 @@ CREATE TABLE `t_produk` (
 --
 
 INSERT INTO `t_produk` (`id_produk`, `nama_produk`, `tipe`, `profil`, `warna`, `size`, `load`) VALUES
-(1, 'Produk A', 'Tipe 1', 'Profil 1', 'Merah', 'L', 12.50),
+(1, 'Produk A', 'Tipe 1', 'Profil 1', 'Merah', 'S', 12.50),
 (2, 'Produk B', 'Tipe 2', 'Profil 2', 'Biru', 'M', 8.30),
-(3, 'Produk C', 'Tipe 1', 'Profil 3', 'Hijau', 'S', 5.00),
-(5, 'safaf', 'agas', 'asfa', 'safaf', '1', 1.00);
+(3, 'Produk C', 'Tipe 1', 'Profil 3', 'Hijau', 'S', 5.00);
 
 -- --------------------------------------------------------
 
@@ -339,25 +343,25 @@ ALTER TABLE `t_users`
 -- AUTO_INCREMENT for table `t_bahan_baku`
 --
 ALTER TABLE `t_bahan_baku`
-  MODIFY `id_bahan_baku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_bahan_baku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `t_bahan_baku_masuk`
 --
 ALTER TABLE `t_bahan_baku_masuk`
-  MODIFY `no_bahan_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `no_bahan_masuk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `t_bom`
 --
 ALTER TABLE `t_bom`
-  MODIFY `kode_bom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `kode_bom` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `t_mps`
 --
 ALTER TABLE `t_mps`
-  MODIFY `id_mps` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_mps` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `t_mrp`
@@ -369,7 +373,7 @@ ALTER TABLE `t_mrp`
 -- AUTO_INCREMENT for table `t_pelanggan`
 --
 ALTER TABLE `t_pelanggan`
-  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_pelanggan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `t_pesanan`
@@ -381,7 +385,7 @@ ALTER TABLE `t_pesanan`
 -- AUTO_INCREMENT for table `t_produk`
 --
 ALTER TABLE `t_produk`
-  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_produk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `t_users`
