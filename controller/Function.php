@@ -424,11 +424,11 @@ function editBOM($bom_id, $id_produk, $nama_komponen, $panjang, $tb, $jumlah, $s
 // Fungsi Hapus BOM
 function hapusBOM($bom_id){
     include "Database.php";
-    $query = mysqli_query($conn, "DELETE FROM t_bom WHERE kode_bom='$bom_id'");
+    $query = mysqli_query($conn, "DELETE FROM t_bom WHERE kode_bom=$bom_id");
     if (!$query) {
         die("Query error: " . mysqli_error($conn));
     } else {
-        echo "<script>window.location='$_SERVER[PHP_SELF]?u=data-bom';</script>";
+        echo "<script>window.location='$_SERVER[PHP_SELF]?u=bom';</script>";
         exit;
     }
 }

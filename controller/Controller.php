@@ -84,7 +84,7 @@ if(isset($_GET['u'])){
         hapusBahanBaku($id_bahan_baku);
     }
     // Hapus Bahan Baku Masuk
-    else if ($_GET['u'] == 'hapus-bahan_baku_masuk') {
+    else if ($_GET['u'] == 'hapus-bahan-baku-masuk') {
         SessionCheck();
         $id_bahan_baku_masuk = $_GET['id'];
         hapusBahanBakuMasuk($id_bahan_baku_masuk);
@@ -92,7 +92,7 @@ if(isset($_GET['u'])){
     // Hapus BOM
     else if ($_GET['u'] == 'hapus-bom') {
         SessionCheck();
-        $kode_bom = $_GET['id'];
+        $kode_bom = $_GET['kode'];
         hapusBOM($kode_bom);
     }
     // Hapus MRP

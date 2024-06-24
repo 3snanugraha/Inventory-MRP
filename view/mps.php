@@ -67,8 +67,7 @@
                         <p>Berikut adalah semua data Master Production Schedule (MPS). Gunakan <code>.Search</code> untuk mencari atau memfilter data. Gunakan kolom <code>.Aksi</code> untuk mengolah data.</p>
                         <a href="#" data-bs-toggle="modal" data-bs-target="#tambah-data-mps" class="btn btn-outline-primary mt-2 mb-4 rounded-pill"><i class="bi bi-plus-circle"></i><span> Tambahkan data </span></a>
                         <a href="#" onclick="location.reload();" class="btn btn-outline-warning mt-2 mb-4 rounded-pill"><i class="bi bi-arrow-clockwise"></i><span> Refresh data </span></a>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#keterangan-mps" class="btn btn-outline-info mt-2 mb-4 rounded-pill"><i class="bi bi-info-circle"></i><span> Keterangan </span></a>
-
+                     
                         <!-- Table with stripped rows -->
                         <div class="table-responsive">
                             <table class="table datatable">
